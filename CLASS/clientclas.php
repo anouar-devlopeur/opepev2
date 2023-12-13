@@ -19,5 +19,13 @@ class client{
         }
 
     }
+    public function pagination(){
+         $result = "SELECT COUNT(idPlante) AS total FROM plantes";
+         $res = $this->cnx->query($result); 
+         $rest =$res->fetch(PDO::FETCH_ASSOC);
+    
+        return $rest;
+      
+    }
 }
 ?>

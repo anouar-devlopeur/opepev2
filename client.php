@@ -376,17 +376,16 @@ $count=$client->countplant($userId);
         <!-- ... (Pagination) ... -->
 
         <?php
-        // $result = $conn->query("SELECT COUNT(idPlante) AS total FROM plantes");
-        // $row = $result->fetch_assoc();
-        // $total_pages = ceil($row["total"] / $limit);
-
-        // echo '<nav aria-label="Page navigation example">';
-        // echo '<ul class="pagination">';
-        // for ($i = 1; $i <= $total_pages; $i++) {
-        //     echo '<li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
-        // }
-        // echo '</ul>';
-        // echo '</nav>';
+        $rows=$client->pagination();
+         $total_pages = ceil($rows["total"] / $limit);
+      
+        echo '<nav aria-label="Page navigation example">';
+        echo '<ul class="pagination">';
+        for ($i = 1; $i <= $total_pages; $i++) {
+            echo '<li class="page-item"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+        }
+        echo '</ul>';
+        echo '</nav>';
         ?>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
