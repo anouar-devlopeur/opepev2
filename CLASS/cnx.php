@@ -16,7 +16,8 @@ $con = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
  $login= new Login($con);
  require_once "validation.php";
  $validation= new Validation($con);
-   
+ require_once "clientclas.php"; 
+ $client= new Client($con);
 
    
 
