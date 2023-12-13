@@ -20,6 +20,8 @@ require_once "clientclas.php";
 $client= new Client($con);
 require_once "categorie.php"; 
 $Categorie = new Categorie($con);
+require_once "pannier.php";
+$Pannier = new Pannier($con);
 
    
 

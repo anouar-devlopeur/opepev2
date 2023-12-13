@@ -5,23 +5,8 @@ include './CLASS/cnx.php';
 session_start();
 $userId = $_SESSION['idUtl'];
 $count=$client->countplant($userId);
-// echo''.$count.'';
+//  echo''.$count.'';
 
- if (isset($_POST['addToCart'])) {
-    
-     $plantId = $_POST['addToCart'];
-
-//     $insertQuery = "INSERT INTO panier (idUtl, idPlante, quantite) VALUES ('$userId','$plantId',1)";
-//     $result = $conn->query($insertQuery);
-   
-//     if ($result) {
-//         // rje3 l page li 9bel
-//         header('location:' . $_SERVER['HTTP_REFERER']);
-//         exit;
-//     } else {
-//         echo "<script>alert('erreur d'ajout')</script>";
-//     }
-}
 
 ?>
 
@@ -230,7 +215,7 @@ $count=$client->countplant($userId);
                         </svg>
                         <p class=" count">
                        
-                            <!-- <?php echo $count ?> -->
+                          <?php echo $count ?> 
                         </p>
                     </a> 
                       </li>
@@ -339,7 +324,7 @@ $count=$client->countplant($userId);
                     echo '</div>';
                     echo '<div class="d-flex justify-content-center">';
                     //---------------------------------- form-btn--------------------------------------
-                    echo '<form method="POST" >';
+                    echo '<form method="POST" action="traitement/insertpannier.php" >';
                     echo '<button class="btn btn-success panier-btn mt-2" name="addToCart" value="' . $plante['idPlante'] . '">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
                     <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
@@ -371,6 +356,8 @@ $count=$client->countplant($userId);
            
              ?>
         </div>
+
+    
 
 
         <!-- ... (Pagination) ... -->
