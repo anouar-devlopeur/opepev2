@@ -18,6 +18,8 @@ $con = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
  $validation= new Validation($con);
  require_once "clientclas.php"; 
  $client= new Client($con);
+ require_once "categorie.php"; 
+ $Categorie = new Categorie($con);
 
    
 

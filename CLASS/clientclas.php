@@ -12,5 +12,12 @@ class client{
             return $count;
         }
     }
+    public function plantesQuery($sql){
+        $res=$this->cnx->query($sql);
+        if ($res !== false) {
+            return $res;
+        }
+
+    }
 }
 ?>

@@ -9,7 +9,7 @@ $count=$client->countplant($userId);
 
  if (isset($_POST['addToCart'])) {
     
-//     $plantId = $_POST['addToCart'];
+     $plantId = $_POST['addToCart'];
 
 //     $insertQuery = "INSERT INTO panier (idUtl, idPlante, quantite) VALUES ('$userId','$plantId',1)";
 //     $result = $conn->query($insertQuery);
@@ -204,7 +204,7 @@ $count=$client->countplant($userId);
     <header style="background-color:  #ffffff50; height:80px; width:100%; position:absolute;  top:0;">
         <nav class="nav container" >
                 <a href="client.php" class="nav__logo">
-                    <img src="images/logo.png" alt="logo">
+                    <img src="plantes/logo.png" alt="logo">
                 </a> 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
@@ -257,7 +257,7 @@ $count=$client->countplant($userId);
                     </button>
                 </div>
                 <div class="col">
-                    <img src="images//o.png" alt="Image de plantes">
+                    <img src="plantes/o.png" alt="Image de plantes">
                 </div>
             </div>
         </div>
@@ -267,17 +267,16 @@ $count=$client->countplant($userId);
         <nav class="navbar navbar-expand-lg bg-body-tertiary" style="border:1px solid white; border-radius:20px; width:37%;">
             <div class="d-flex" style="gap:20px">
                 <form method="get"  class="d-flex justify-content-center" role="search">
-                    <a class="navbar-brand" href="?view_all" style="color:white">View All</a>
+                    <a class="navbar-brand btn btn-success" href="?view_all" style="color:white">View All</a>
 
                     <div style="display: flex; ">
                     <select name="categorie" id="categorieSelect" style="border-radius: 5px; height:38px ; background-color: transparent; color:white" onchange="submitForm()">
                         <option style="color: black" value="all">Toutes les catégories</option>
                         <?php
-                        // $categoriesQuery = $conn->query("SELECT DISTINCT idCategorie, nomCategorie FROM categories");
-                        // $categories = $categoriesQuery->fetch_all(MYSQLI_ASSOC);
-                        // foreach ($categories as $category) {
-                        //     echo '<option style="color: black" value="' . $category['idCategorie'] . '">' . $category['nomCategorie'] . '</option>';
-                        // }
+                           $rows= $Categorie->getCategorie();
+                           foreach ($rows as $row ) {
+                            echo '<option style="color: black" value="' .  $row['idCategorie'] . '">' .  $row['nomCategorie'] . '</option>';
+                           }
                         ?>
                     </select>
 
@@ -285,7 +284,7 @@ $count=$client->countplant($userId);
                 </form>
                 <form method="get" class="d-flex justify-content-center">
                     <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" id="searchInput" style="height: 40px;background-color: transparent; color:white;border-radius: 5px ;">
-                    <button class=" searchbtn btn-success"name="search_but" type="sumbit" style=" border-radius: 0 40px  40px 0; height:40px ; background-color: transparent">GO</button>
+                    <button class=" searchbtn btn-success"name="search_but" type="sumbit" style=" border-radius: 0 40px  40px 0; height:40px ; ">GO</button>
                 </form>
 
             </div>
@@ -294,77 +293,83 @@ $count=$client->countplant($userId);
     <section class="sec3">
         <div class="container mt-5">
             <?php
-            // $limit = 6;
-            // $page = isset($_GET['page']) ? $_GET['page'] : 1;
-            // $start = ($page - 1) * $limit;
+            $limit = 6;
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $start = ($page - 1) * $limit;
 
             // // Vérifie si le formulaire est soumis
-            // if (isset($_GET['view_all'])) {
-            //     $plantesQuery = $conn->query("SELECT * FROM plantes LIMIT $start, $limit");
-            // } elseif(isset($_GET['search_but'])) {
-            //     $nomPlante = $_GET['search'];
-            //     $plantesQuery = $conn->query("SELECT * FROM plantes WHERE nomPlante LIKE '%$nomPlante%'");
+            if (isset($_GET['view_all'])) {
+                $sql="SELECT * FROM plantes LIMIT $start, $limit";
+                $plantesQuery=$client->plantesQuery($sql);
+
+            }
+             elseif(isset($_GET['search_but'])&&(!empty($_GET['search_but']))) {
+               $nomPlante = $_GET['search'];
+               $sql="SELECT * FROM plantes WHERE nomPlante LIKE '%$nomPlante%'";
+               $plantesQuery=$client->plantesQuery($sql);
+            //     $plantesQuery = $conn->query("");
                 
-            // }else{
+             }
+            else{
             //     // Récupère la catégorie sélectionnée
-            //     $categoryFilter = (isset($_GET['categorie']) && $_GET['categorie'] != 'all') ? "WHERE idCategorie = {$_GET['categorie']}" : "";
+                $categoryFilter = (isset($_GET['categorie']) && $_GET['categorie'] != 'all') ? "WHERE idCategorie = {$_GET['categorie']}" : "";
+                  //     // Mettez à jour la requête pour inclure le filtre de catégorie      
+                  $sql="SELECT * FROM plantes $categoryFilter LIMIT $start, $limit";
+                  $plantesQuery=$client->plantesQuery($sql);
+             }
 
-            //     // Mettez à jour la requête pour inclure le filtre de catégorie
-            //     $plantesQuery = $conn->query("SELECT * FROM plantes $categoryFilter LIMIT $start, $limit");
-            // }
-
-            // $counter = 0;
-            // if(mysqli_num_rows($plantesQuery) > 0){
-            //     while ($plante = $plantesQuery->fetch_assoc()) {
-            //         if ($counter % 3 == 0) {
-            //             echo '<div class="row">';
-            //         }
-            //         echo '<div class="col-md-4 mb-4">';
-            //         echo '<div class="card">';
-            //         echo '<div class="d-flex justify-content-center">';
-            //         echo '<img " src="' . $plante['imagePlante'] . '" class="card-img-top card-img-custom" alt="' . $plante['nomPlante'] . '">';
-            //         echo '</div>';
-            //         echo '<div class="card-body">';
-            //         echo '<h5 class="card-title">' . $plante['nomPlante'] . '</h5>';
-            //         echo '<hr>';
-            //         echo '<div class="text-left">';
-            //         echo '<p class="card-text mb-2"><strong>Description:</strong> <span style="color:black;">' . $plante['descriptionPlante'] . '</span></p>';
-            //         echo '<p class="card-text mb-2"><strong>Price:</strong> <span style="color:black;">' . $plante['prix'] . 'DH </span></p>';
-            //         echo '<p class="card-text mb-2"><strong>Stock:</strong> <span style="color:black;">' . $plante['stock'] . '</span></p>';
-            //         echo '</div>';
-            //         echo '<div class="d-flex justify-content-center">';
-            //         //---------------------------------- form-btn--------------------------------------
-            //         echo '<form method="POST" >';
-            //         echo '<button class="btn btn-success panier-btn mt-2" name="addToCart" value="' . $plante['idPlante'] . '">
-            //         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
-            //         <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
-            //         <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-            //       </svg>
-            //             Ajouter
-            //         </button>';
-            //         echo '</form>';
-            //         //fin
-            //         echo '</div>';
-            //         echo '</div>';
-            //         echo '</div>';
-            //         echo '</div>';
+             $counter = 0;
+             if($plantesQuery->rowCount() > 0){
+                while ($plante = $plantesQuery->fetch(PDO::FETCH_ASSOC)) {
+                    if ($counter % 3 == 0) {
+                        echo '<div class="row">';
+                    }
+                    echo '<div class="col-md-4 mb-4">';
+                    echo '<div class="card">';
+                    echo '<div class="d-flex justify-content-center">';
+                    echo '<img " src="' . $plante['imagePlante'] . '" class="card-img-top card-img-custom" alt="' . $plante['nomPlante'] . '">';
+                    echo '</div>';
+                    echo '<div class="card-body">';
+                    echo '<h5 class="card-title">' . $plante['nomPlante'] . '</h5>';
+                    echo '<hr>';
+                    echo '<div class="text-left">';
+                    echo '<p class="card-text mb-2"><strong>Description:</strong> <span style="color:black;">' . $plante['descriptionPlante'] . '</span></p>';
+                    echo '<p class="card-text mb-2"><strong>Price:</strong> <span style="color:black;">' . $plante['prix'] . 'DH </span></p>';
+                    echo '<p class="card-text mb-2"><strong>Stock:</strong> <span style="color:black;">' . $plante['stock'] . '</span></p>';
+                    echo '</div>';
+                    echo '<div class="d-flex justify-content-center">';
+                    //---------------------------------- form-btn--------------------------------------
+                    echo '<form method="POST" >';
+                    echo '<button class="btn btn-success panier-btn mt-2" name="addToCart" value="' . $plante['idPlante'] . '">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                  </svg>
+                        Ajouter
+                    </button>';
+                    echo '</form>';
+                    //fin
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
     
-            //         if ($counter % 3 == 2) {
-            //             echo '</div>';
-            //         }   
+                    if ($counter % 3 == 2) {
+                        echo '</div>';
+                    }   
     
-            //         $counter++;
-            //     }
-            //     if ($counter % 3 != 0) {
-            //         echo '</div>';
-            //     }
-            // }else{
-            //     echo "<script>alert('La plante n existe pas')</script>";
-            // }
+                    $counter++;
+                }
+                if ($counter % 3 != 0) {
+                    echo '</div>';
+                }
+            }else{
+                echo "<script>alert('La plante n existe pas')</script>";
+             }
             
 
            
-            // ?>
+             ?>
         </div>
 
 
@@ -384,7 +389,8 @@ $count=$client->countplant($userId);
         // echo '</nav>';
         ?>
     </section>
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script>
     function submitForm() {
         document.getElementById('categorieSelect').form.submit();
