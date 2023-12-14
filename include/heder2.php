@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -162,7 +163,7 @@
                     </li>
                     <!-- shopping cart -->
                     <li>
-                        <a href="panier.php" style="cursor: pointer;">
+                        <a href="pannierp.php" style="cursor: pointer;">
                             <i class="ri-shopping-bag-line" style="font-size:27px;"></i>
                         </a>
                     </li>

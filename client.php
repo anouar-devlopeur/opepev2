@@ -209,7 +209,7 @@ $count=$client->countplant($userId);
                          <!-- log out -->
                         <li>
                         <form method="post"  >
-                          <button class=" btn-success" name="logout">
+                          <button class="btn" name="logout" style="font-size:27px;cursor: pointer; background-color: transparent;">
                           <i class="ri-logout-box-r-line" style="font-size:27px;"></i>
                         </button>
                         </form>

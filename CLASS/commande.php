@@ -10,6 +10,7 @@ class Commande{
    return  $resultCommande->execute();
     
   }
+  
   public function details_commande($idUser){
       // Utilisation de LAST_INSERT_ID() pour récupérer l'ID de la dernière commande insérée
       $requeteDetailsCommande = "INSERT INTO details_commande (idCommande, idPlante, quantite) 

@@ -11,7 +11,7 @@ if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
 }
 
 
-include 'include/heder2.php';
+include './include/heder2.php';
 ?>
 
 
