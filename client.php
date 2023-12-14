@@ -4,16 +4,9 @@
 include './CLASS/cnx.php';
 session_start();
 if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
-   
     $_SESSION['idUtl'] = "";
-
-
     session_destroy();
-
-   
     header('location: index.php');
-    
-
     exit();
 }
 $userId = $_SESSION['idUtl'];

@@ -22,6 +22,13 @@ require_once "categorie.php";
 $Categorie = new Categorie($con);
 require_once "pannier.php";
 $Pannier = new Pannier($con);
+require_once "plante.php";
+$Plante= new Plante($con);
+require_once "commande.php";
+$Commande = new Commande($con);
+require_once "theme.php";
+$Theme= new Theme($con);
+
 
    
 
