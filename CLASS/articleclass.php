@@ -38,4 +38,20 @@ class Articleclass{
         return $row;
 
     }
+    public function search($idTh,$search){ 
+    $sql = 'SELECT * FROM articles WHERE idTh=:theme AND nomAr LIKE :searchTerm';
+    $stmt = $this->cnx->prepare($sql);
+$stmt->bindValue(':searchTerm', '%' . $search . '%', PDO::PARAM_STR);
+$stmt->bindParam(':theme', $idTh, PDO::PARAM_INT);
+$stmt->execute();
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+return $results;
+    }
+    public function affiche($idTh){
+        $reqarticle = "SELECT * FROM articles WHERE idTh='$idTh' LIMIT 6";
+        $result = $this->cnx->prepare($reqarticle);
+        $result->execute();
+        $results = $result->fetchAll(PDO::FETCH_ASSOC);
+                return $results;
+    }
 }
