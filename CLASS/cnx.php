@@ -28,6 +28,8 @@ require_once "commande.php";
 $Commande = new Commande($con);
 require_once "theme.php";
 $Theme= new Theme($con);
+require_once "tags.php";
+$Tags= new Tags($con);
 
 
    

@@ -1,5 +1,5 @@
 <?php 
-include './CLASS/cnx.php';
+
 include './CLASS/cnx.php';
 session_start();
 
@@ -14,10 +14,8 @@ if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
 
 $userId = $_SESSION['idUtl'];
 
-// $idth=$_GET['id'];
-// session_start();
+$idth=$_GET['id'];
 
-// $idUser=$_SESSION['idUtl'];
 
 
 // if (isset($_POST["save_data"])) {
@@ -85,24 +83,24 @@ $userId = $_SESSION['idUtl'];
 
 
 ?>
-<!doctype html>
+
+<!Doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Article</title>
+    <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  
-<!--  -->
-<style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-
-    .sec1 h1 {
+  <style> .sec1 h1 {
         font-size: 3.5vw;
         width: 24vw;
         color: black;
         width: 40vw;
+        
     }
 
     .sec1 p {
@@ -118,6 +116,7 @@ $userId = $_SESSION['idUtl'];
         border: 2px solid white;
         width: 10vw;
         margin-top: 2rem;
+      
     }
 
     .sec3 .card {
@@ -233,12 +232,13 @@ $userId = $_SESSION['idUtl'];
       max-height: 80vh;
       overflow-y: scroll !important;
     }
+
+
+
 </style>
-<!--  -->
 </head>
-  
   <body>
-  <!-- <header style=" background-color: #132a137e; height:80px; width:100%; position:absolute;">
+  <header style=" background-color: #132a137e; height:80px; width:100%; position:absolute;  top:0;">
         <nav class="nav container">
                 <a href="#" class="nav__logo">
                     <img src="plantes/logo.png" alt="logo">
@@ -252,17 +252,16 @@ $userId = $_SESSION['idUtl'];
                             <a href="blog.php"  style="font-size: 20px;">Blog</a>
                         </li>
                         <!-- shopping cart -->
-                        <!-- <li>
+                        <li>
                           <a href="panier.php" style="cursor: pointer;">
                             <i class="ri-shopping-bag-line" style="font-size:27px;"></i>
                         </a>
-                      </li> -->
+                      </li>
                          <!-- log out -->
-                        <!-- <li>
-                        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
-                          <a href="index.php">
-                          <i class="ri-logout-box-r-line" style="font-size:27px;"></i>
-                        </a>
+                        <li>
+                        <form method="post"  >
+                        <button class=" btn ri-logout-box-r-line" style="font-size:27px;cursor: pointer; background-color: transparent;" name="logout"></button>
+
                         </form>
                       </li>
 
@@ -272,53 +271,154 @@ $userId = $_SESSION['idUtl'];
 
                     </div>   
             </nav>
-    </header>  -->
-    <section>
-    <div style="margin-left: 50px;" >
-        <div class=" justify-content-center ">
-            <div class="">
-                <div class="">
-                    <div >
-                      
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="26" fill="currentColor" class="bi bi-plus-circle " viewBox="0 0 16 16">
-      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-    </svg>
-</button>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    </header>
+  
+    <section class="w-100 " style="margin-top: 150px;">
+<!-- search -->
+          <div class="w-75 input-group rounded mx-auto my-3">
+          <form class="w-50 input-group rounded mx-auto md-form form-sm" method="post" action="">
+            <input style="width:30vw ; height: 3vw " class="" type="text" placeholder="Search" aria-label="Search" id="Search" name="keyword">
+          </form>
+          </div>
  
+<div class="barre d-flex justify-content-center align-items-center gap-5">
+      <div class="tags d-flex gap-3 ">
+  <div><a href="article.php?id=<?php echo $idth;?>" class="btn btn-success" style="font-size: 20px;color:black ; margin-left:25px">View all</a></div>
+          <?php
+             $result=$Tags->get_tag($idth);
+         
+             
+             foreach ($result as $row) {
+                 echo '<button class="btnTags btns  bg-success" value="' . $row['nomTag'] . '">' . $row['nomTag'] . '</button>';
+             }
+         
+             
+                      
+            ?>
+  </div>
+<!-- modal article -->
+  <!-- ------------add article --------------->
+  <div style="margin-left: 50px">
+    <div class="row justify-content-center ">
+        <div class="col-md-8">
+           
+                <div class=""> 
+           <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#insertdata">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="26" fill="currentColor" class="bi bi-plus-circle " viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                    </svg>
+                </button>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
+                </div>
+        
+        </div>
     </div>
   </div>
 </div>
-<!-- test  -->
+
+  <div class="modal fade"  id="insertdata" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="insertdataLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="insertdataLabel">INSERT ARTICLE</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+     
+        <form action="./traitement/insertarticle.php" method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+        <div class="from-group mb-3">
+        <input type="hidden" name="idth" class=" form-control" value="<?php echo $idth ?>">
+          <label for="" class="mb-2 fs-4">Name Article</label>
+          <input type="text" name="namarticle" class=" form-control" placeholder="name">
+        </div>
+        <div class="from-group mb-3">
+          <label for="" class="mb-2 fs-4">Description</label>
+          <input type="text" name="description_a" class=" form-control" placeholder="description">
+        </div>
+        <div class="from-group mb-3">
+          <label for="" class="mb-2 fs-4">Image</label>
+          <input type="file" name="image" class=" form-control" placeholder="image">
+        </div>
+        <div class="from-group mb-3">
+          <label for="" class="mb-2 fs-4">Tags</label>
+          <p>Selectionnez un tag</p>
+          
+          <?php
+           
+             $result=$Tags->get_tag($idth);
+         
+            foreach ($result as $row) {
+              echo '<input type="radio"  value="'.$row['nomTag'].'" name="tag[]">';
+              echo $row['nomTag'];
+              echo "<br>";
+              }
+            
+          ?>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" name="save_data" class="btn btn-primary" value="Save Data"></input>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div> 
+  <div id="cardT" class="w-100 row d-flex justify-content-center gap-5 test" style="margin-top: 40px">
+
+<?php  
+$result = $Theme->article_by_idth($idth);
+
+  foreach ($result as $row) {
+ 
+    $articleId = $row['idAr'];
+?>
+
+<div class="card mb-4 col-" style="width: 25%">
+
+    <div class=" mt-2 ">
+        <img class="card-img-top" style="height: 20vw;" src="<?php echo $row['imageAr'] ?>" alt="Card image cap">
+    </div>
+
+    <div class="card-body">
+        <h4 class="card-title"><?php echo $row['nomAr'] ?></h4>
+        <span style="color: black;"><?php echo $row['dateAr'] ?></span>
+        <p class="card-text" style="color: black;"><?php echo $row['disc'] ?></p>
+        
+        <div class="imogi_Read d-flex justify-content-between align-items-center">
+            <div class="imogi d-flex gap-4">
+                <!-- commentaire -->
+                <button onclick="getarticleId(<?= $articleId ?>)" id="commentaire" class="btn" data-bs-toggle="modal" data-bs-target="#insertdataCommentaire">
+                    <svg class="imogies" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
+                        <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894m-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="read d-flex justify-content-center align-items-center">
+                <a href="./oneArticle.php?id=<?php echo $articleId?>" name="read_more" id="read" class="btn btn-light-blue btn-md">Read more </a>
+                <svg xmlns="http://www.w3.org/2000/svg" style="cursor: pointer;" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<?php }  ?>
+
+</div>
+
+ 
 
 
-</section>
+  
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
 </html>
-

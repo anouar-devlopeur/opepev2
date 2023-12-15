@@ -11,5 +11,14 @@ class Theme{
             return $themes;
         
      }
+     public function article_by_idth($idth){
+        $reqarticle = "SELECT idAr, nomAr, SUBSTRING(descriptionAr, 1, 60)as disc, imageAr, dateAr FROM articles WHERE idTh = $idth LIMIT 6";
+            $stmt =$this->cnx->query($reqarticle);
+               return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        ;
+        
+
+     }
 
 }
