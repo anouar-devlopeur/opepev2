@@ -18,42 +18,35 @@ $idth=$_GET['id'];
 
 
 
-// if (isset($_POST["save_data"])) {
-//   $name = $_POST['namarticle'];
-//   $desc = mysqli_real_escape_string($conn, $_POST['description_a']);
-//   date_default_timezone_set("Africa/Casablanca");
-//   $date = date("Y-m-d H:i:s");
+if (isset($_POST["save_data"])) {
+  // $idth= $_POST['idth'];
+  echo $idth;
+  $name = $_POST['namarticle'];
+  $desc =  $_POST['description_a'];
+  date_default_timezone_set("Africa/Casablanca");
+  $date = date("Y-m-d H:i:s");
 
-//   $i_name = $_FILES['image']['name'];
-//   $i_tmp = $_FILES['image']['tmp_name'];
+  $i_name = $_FILES['image']['name'];
+$i_tmp = $_FILES['image']['tmp_name'];
 
-//   $si_extension = pathinfo($i_name, PATHINFO_EXTENSION);
-//   $i_lower = strtolower($si_extension);
-//   $arrytype = array("jpg", "jpeg", "png");
+$si_extension = pathinfo($i_name, PATHINFO_EXTENSION);
+$i_lower = strtolower($si_extension);
+$allowed_extensions = array("jpg", "jpeg", "png");
 
-//   if (in_array($i_lower, $arrytype)) {
-//       $new_image = uniqid("IMG-", true) . '.' . $i_lower;
-//       $upload_path = './img/' . $new_image;
-//       move_uploaded_file($i_tmp, $upload_path);
+if (in_array($i_lower, $allowed_extensions)) {
+    $new_image = uniqid("IMG-", true) . '.' . $i_lower;
+    $upload_path = './img/' . $new_image;
+    move_uploaded_file($i_tmp, $upload_path);
+      // Gérer les tags
+      $tags = isset($_POST['tag']) ? implode(',', $_POST['tag']) : '';
+      // insertion article
+      $res=$Article->insertarticle($name,$desc,$upload_path,$date,$userId,$idth,$tags);
+      // if ($res) {
+         // header('Location: ../article.php');
+      // }
 
-//       // Gérer les tags
-//       $tags = isset($_POST['tag']) ? implode(',', $_POST['tag']) : '';
-
-//       $qery = "INSERT INTO articles( nomAr, descriptionAr, imageAr, dateAr, idUtl, idTh, tagsAr)
-//                VALUES ('$name', '$desc', '$upload_path', '$date', '$idUser', '$idth', '$tags')";
-//       $result = mysqli_query($conn, $qery);
-
-//       if ($result) {
-
-       
-//           echo "<script>alert('Article cree avec succès.')</script>";
-//           echo "<script>setTimeout(function(){ window.location.href = 'blog.php'; }, 1000);</script>";
-//       } else {
-
-//           echo "Erreur de creation : " . mysqli_error($conn);
-//       }
-//   } 
-// }
+}
+}
 
 // if(isset($_POST['cancel'])){
 //   header("Location: article.php?id=$idth");
@@ -89,7 +82,7 @@ $idth=$_GET['id'];
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Article</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -326,10 +319,10 @@ $idth=$_GET['id'];
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
      
-        <form action="./traitement/insertarticle.php" method="post" enctype="multipart/form-data">
+        <form  method="post" enctype="multipart/form-data">
         <div class="modal-body">
         <div class="from-group mb-3">
-        <input type="hidden" name="idth" class=" form-control" value="<?php echo $idth ?>">
+        <!-- <input type="hidden" name="idth" class=" form-control" value="<?php echo $idth ?>"> -->
           <label for="" class="mb-2 fs-4">Name Article</label>
           <input type="text" name="namarticle" class=" form-control" placeholder="name">
         </div>

@@ -30,7 +30,8 @@ require_once "theme.php";
 $Theme= new Theme($con);
 require_once "tags.php";
 $Tags= new Tags($con);
-
+require_once "articleclass.php";
+$Article= new Articleclass($con);
 
    
 
