@@ -17,4 +17,25 @@ class Articleclass{
       return  $stmt->execute();
    
     }
+    public function pagination($idth){
+        $sql = "SELECT COUNT(idAr) as totalarticle FROM articles WHERE idTh = :idth";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':idth', $idth, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $pagination = $row['totalarticle'];
+        return $pagination;
+     
+ 
+    }
+    public function Affpagination($idTh,$offset){
+        $sql = "SELECT * FROM articles WHERE idTh = :theme LIMIT :offset, 6";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':theme', $idTh, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+
+    }
 }
