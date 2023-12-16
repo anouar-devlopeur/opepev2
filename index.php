@@ -1,5 +1,6 @@
 <?php 
-include './CLASS/cnx.php';
+include './CLASS/Connection.php';
+include './CLASS/login.php';
 
 if (isset($_POST['submitConn'])) {
     
@@ -8,11 +9,14 @@ if (isset($_POST['submitConn'])) {
     $mdpConn = $_POST["mdpConn"];
     if (!empty($emailConn) && !empty($mdpConn)) {
        
-        if ($login->isValidEmail($emailConn)) {
+        // if ($login->isValidEmail($emailConn)) {
+       
+        // }else {
+        //     echo "<script>alert('Email incorrect ')</script>";
+        // }
+        $login=new Login();
         $login->login($emailConn, $mdpConn);
-        }else {
-            echo "<script>alert('Email incorrect ')</script>";
-        }
+
 
     }
   

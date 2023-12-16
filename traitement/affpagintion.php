@@ -1,5 +1,6 @@
 <?php
-include '../CLASS/cnx.php';
+include '../CLASS/Connection.php';
+include '../CLASS/articleclass.php';
 
     ?>
 <div class="w-100 row d-flex justify-content-center gap-5" style="margin-top:40px">
@@ -13,7 +14,8 @@ include '../CLASS/cnx.php';
                 $theme = $_POST['theme']; // theme 1
          
             
-                $pagination = ($page - 1)*6;
+                $pagination = ($page - 1)*10;
+                $Article=new Articleclass();
                  $results = $Article->Affpagination($theme,$pagination);
 
                   

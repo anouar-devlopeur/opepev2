@@ -1,8 +1,9 @@
 <?php 
 class Tags{
     private $cnx;
-    public function __construct($pdo){
-  $this->cnx = $pdo;
+    public function __construct(){
+  $db=new Connection();
+  $this->cnx = $db->getConnection();
     }
     public function get_tag($idth){
         $req="SELECT nomTag

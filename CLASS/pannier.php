@@ -1,17 +1,40 @@
 <?php 
 class Pannier{
     private $cnx;
-    public function __construct($pdo){
-        $this->cnx = $pdo;
+    private $idUtl;
+    private$idPlante;
+
+    public function __construct(){
+        $djd = new Connection();
+        $this->cnx = $djd->getConnection();
     }
-    public function InsertPannier($idUtl, $idPlante) {
+        // Getter for $idUtl
+        public function getIdUtl() {
+            return $this->idUtl;
+        }
+    
+        // Setter for $idUtl
+        public function setIdUtl($idUtl) {
+            $this->idUtl = $idUtl;
+        }
+    
+        // Getter for $idPlante
+        public function getIdPlante() {
+            return $this->idPlante;
+        }
+    
+        // Setter for $idPlante
+        public function setIdPlante($idPlante) {
+            $this->idPlante = $idPlante;
+        }
+    public function InsertPannier() {
         $sql = "INSERT INTO panier(idUtl, idPlante, quantite) VALUES (?, ?, 1)";
         $res = $this->cnx->prepare($sql);
-        $res->bindParam(1, $idUtl, PDO::PARAM_INT);
-        $res->bindParam(2, $idPlante, PDO::PARAM_INT);
-    
+        $res->bindParam(1, $this->idUtl, PDO::PARAM_INT);
+        $res->bindParam(2, $this->idPlante, PDO::PARAM_INT);
+
         $res->execute();
-    
+
         return true;
     }
     public function affichePannier($idUtl) {

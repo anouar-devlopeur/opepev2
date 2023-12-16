@@ -1,38 +1,13 @@
 
 <?php 
-include './CLASS/cnx.php';
+include './CLASS/Connection.php';
+include './CLASS/pannier.php';
+include './CLASS/plante.php';
 session_start();
 $userId = $_SESSION['idUtl'];
+$Pannier=new Pannier();
 
-// if (isset($_POST['commander'])) {
-//     $result=$Pannier->affichePannier($userId);
-//      if ($result) {
-//    $res=$Commande->getCommande($userId);
-//    if($res){
 
-//    }
-
-//     }else{  
-//          echo "<script>alert('Erreur lors de la validation de la commande')</script>";
-
-//     }
-   
-
-    // if ($resultCommande) {
-    //     // Utilisation de LAST_INSERT_ID() pour récupérer l'ID de la dernière commande insérée
-    //     $requeteDetailsCommande = "INSERT INTO details_commande (idCommande, idPlante, quantite) 
-    //                                SELECT LAST_INSERT_ID(), idPlante, quantite FROM panier WHERE idUtl = $idUser";
-    //     $resultDetailsCommande = $conn->query($requeteDetailsCommande);
-
-    //     $requeteSuppressionPanier = "DELETE FROM panier WHERE idUtl = $idUser";
-    //     $resultSuppressionPanier = $conn->query($requeteSuppressionPanier);
-
-    //     echo "<script>alert('Commande validée avec succès')</script>";
-    //     header("Location: client.php");
-    //     exit();
-    // } else {
-    // }
-// }
 include './include/header.php' ?>
 
 
@@ -115,7 +90,7 @@ include './include/header.php' ?>
       <?php
       // Calcul du prix total des produits dans le panier
 
-    
+      $Plante=new Plante();
     $totalPrixResult=$Plante->get_plante_total($userId);
 
       $totalPrix = $totalPrixResult['totalPrix'];

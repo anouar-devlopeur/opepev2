@@ -1,6 +1,5 @@
 <?php 
-include '../CLASS/cnx.php';
-// include '../CLASS/utilisateur.php.php';
+include '../CLASS/utilisateur.php';
 //-------------------------------- INSCRIPTION-----------------------------------------
  if (isset($_POST['submitInsc'])) {
 
@@ -8,25 +7,30 @@ include '../CLASS/cnx.php';
     $prenom = $_POST["prenomInsc"];
     $email = $_POST["emailInsc"];
     $mdp = $_POST["mdpInsc"];
+
+    $utilisateur = new Utilisateur();
+
     if (!empty($email) && !empty($mdp) && !empty($nom) && !empty($prenom)) {
        
       
-        if(!$validation->isValidEmailutli($email)){
-            echo "<script>alert('Email incorrect')</script>";
-        }
-       else  if(  !$validation->isValidnomutli($nom,$prenom)){
-        echo "<script>alert('nom ou prenom Alphabitique')</script>";
-       }
-        else {
-            $Utilisateur->insertutilisateurs($nom, $prenom, $email, $mdp);
+    //     if(!$validation->isValidEmailutli($email)){
+    //         echo "<script>alert('Email incorrect')</script>";
+    //     }
+    //    else  if(  !$validation->isValidnomutli($nom,$prenom)){
+    //     echo "<script>alert('nom ou prenom Alphabitique')</script>";
+    //    }
+    
+            $utilisateur->setNomUtl($nom);
+            $utilisateur->setEmailUtl($email);
+            $utilisateur->setMdpUtl($mdp);
+            $utilisateur->setPrenomUtl($prenom);
 
-        }
-
+            
+            $utilisateur->insertutilisateurs();
         
        
     } else {
         echo "<script>alert('Remplir tous les champs')</script>";
-
     }
    
 

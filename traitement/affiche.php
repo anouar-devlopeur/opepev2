@@ -1,11 +1,13 @@
 <?php
-include '../CLASS/cnx.php';
+include '../CLASS/Connection.php';
+include '../CLASS/articleclass.php';
 
    ?>
    <div class="w-100 row  gap-2 mx-auto justify-content-center">
    <?php
 
    $idth = $_GET['idTh'];
+   $Article=new Articleclass();
 $result=$Article->affiche($idth);
 if( $result){
 foreach($result as $row)  {

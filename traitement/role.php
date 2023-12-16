@@ -1,10 +1,13 @@
 <?php
-include '../CLASS/cnx.php';
+include '../CLASS/utilisateur.php';
 
 //-------------------------------- INSCRIPTION-----------------------------------------
+
 if (isset($_POST['submitRole'])) {
+    $Utilisateur = new Utilisateur();
+
     $role = $_POST["role"];
-    $idUtilisateur = $_GET['id']; // Récupérer l'idUtl depuis l'URL
+    $idUtilisateur = $_GET['id'];
 
     if (!empty($role) && !empty($idUtilisateur)) {
        $Utilisateur->role($role, $idUtilisateur);

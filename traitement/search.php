@@ -1,5 +1,6 @@
 <?php
-include '../CLASS/cnx.php';
+include '../CLASS/Connection.php';
+include '../CLASS/articleclass.php';
 
 if(isset($_GET['search'])) {
    ?>
@@ -7,6 +8,7 @@ if(isset($_GET['search'])) {
    <?php
    $search = $_GET['search'];
    $idth = $_GET['idTh'];
+   $Article=new Articleclass();
    $result=  $Article->search( $idth,$search);
 foreach($result as $row) {
 

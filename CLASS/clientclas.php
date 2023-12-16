@@ -1,8 +1,9 @@
 <?php
 class client{
     private $cnx;
-    public function __construct($pdo){
-        $this->cnx = $pdo;
+    public function __construct(){
+        $djd = new Connection();
+        $this->cnx = $djd->getConnection();
     }
     public function countplant($iduser){ 
         $reqet="SELECT * FROM panier JOIN plantes ON panier.idPlante = plantes.idPlante WHERE idUtl= $iduser";

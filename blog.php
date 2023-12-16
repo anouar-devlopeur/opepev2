@@ -1,5 +1,6 @@
 <?php 
-include './CLASS/cnx.php';
+include './CLASS/Connection.php';
+include './CLASS/theme.php';
 session_start();
 $userId = $_SESSION['idUtl'];
 
@@ -9,7 +10,7 @@ if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
     header('location: index.php');
     exit();
 }
-
+$Theme=new Theme();
 
 include './include/heder2.php';
 ?>
@@ -24,7 +25,9 @@ include './include/heder2.php';
 
     <?php
     // Sélectionner tous les thèmes depuis la base de données
+
     $themesResult= $Theme->get_theme();
+    
         foreach($themesResult as $theme ) {
             $themeTitle = $theme['nomTh'];
             $themeDescription = $theme['descriptionTh'];

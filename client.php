@@ -1,7 +1,9 @@
 
 
 <?php 
-include './CLASS/cnx.php';
+include './CLASS/Connection.php';
+include './CLASS/clientclas.php';
+include './CLASS/categorie.php';
 session_start();
 if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
     $_SESSION['idUtl'] = "";
@@ -10,8 +12,8 @@ if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
     exit();
 }
 $userId = $_SESSION['idUtl'];
-$count=$client->countplant($userId);
-
+$client=new client();
+ $count=$client->countplant($userId);
 
 
 ?>
@@ -264,6 +266,7 @@ $count=$client->countplant($userId);
                     <select name="categorie" id="categorieSelect" style="border-radius: 5px; height:38px ; background-color: transparent; color:white" onchange="submitForm()">
                         <option style="color: black" value="all">Toutes les catégories</option>
                         <?php
+                        $Categorie=new Categorie();
                            $rows= $Categorie->getCategorie();
                            foreach ($rows as $row ) {
                             echo '<option style="color: black" value="' .  $row['idCategorie'] . '">' .  $row['nomCategorie'] . '</option>';

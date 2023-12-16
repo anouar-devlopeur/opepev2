@@ -1,6 +1,9 @@
 <?php 
 
-include './CLASS/cnx.php';
+include './CLASS/Connection.php';
+include './CLASS/articleclass.php';
+include './CLASS/tags.php';
+include './CLASS/theme.php';
 session_start();
 
 
@@ -15,12 +18,12 @@ if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
 $userId = $_SESSION['idUtl'];
 
 $idth=$_GET['id'];
-
+$Article=new Articleclass();
 
 
 if (isset($_POST["save_data"])) {
   // $idth= $_POST['idth'];
-  echo $idth;
+  // echo $idth;
   $name = $_POST['namarticle'];
   $desc =  $_POST['description_a'];
   date_default_timezone_set("Africa/Casablanca");
@@ -40,9 +43,19 @@ if (in_array($i_lower, $allowed_extensions)) {
       // Gérer les tags
       $tags = isset($_POST['tag']) ? implode(',', $_POST['tag']) : '';
       // insertion article
-      $res=$Article->insertarticle($name,$desc,$upload_path,$date,$userId,$idth,$tags);
+      $Article->setName($name);
+      $Article->setDesc($desc);
+      $Article->setUploadPath($upload_path);
+      $Article->setDate($date);
+      $Article->setIdUser($userId);
+      $Article->setIdth($idth);
+      $Article->setTags($tags);
+
+      $res=$Article->insertarticle();
+
       // if ($res) {
-         // header('Location: ../article.php');
+  
+      //   //  header('Location: ../article.php');
       // }
 
 }
@@ -278,6 +291,7 @@ if (in_array($i_lower, $allowed_extensions)) {
       <div class="tags d-flex gap-3 ">
   <div><a href="article.php?id=<?php echo $idth;?>" class="btn btn-success" style="font-size: 20px;color:black ; margin-left:25px">View all</a></div>
           <?php
+          $Tags=new Tags();
              $result=$Tags->get_tag($idth);
          
              
@@ -361,6 +375,7 @@ if (in_array($i_lower, $allowed_extensions)) {
   <div id="cardT" class="w-100 row d-flex justify-content-center gap-5 test" style="margin-top: 40px">
 
 <?php  
+$Theme=new Theme();
 $result = $Theme->article_by_idth($idth);
 
   foreach ($result as $row) {
@@ -406,7 +421,7 @@ $result = $Theme->article_by_idth($idth);
   $pagination=$Article->pagination($idth);
 
 
-  $totalpage = ceil($pagination / 6);
+  $totalpage = ceil($pagination / 10);
   if ($totalpage>1) {
   ?>
     <div class="pagination d-flex gap-2 justify-content-center">
@@ -491,5 +506,6 @@ $result = $Theme->article_by_idth($idth);
     })
   })
 </script>
-</body>
-</html>
+<?php
+include './include/footer2.php';
+?>

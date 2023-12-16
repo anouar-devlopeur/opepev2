@@ -2,8 +2,9 @@
 class Login {
     private $cnx;
 
-    public function __construct($pdo) {
-        $this->cnx = $pdo;
+    public function __construct() {
+        $dd=new Connection();
+        $this->cnx = $dd->getConnection();
     }
 
     function isValidEmail($email) {
@@ -15,7 +16,7 @@ class Login {
                   FROM utilisateurs u
                   JOIN roles r ON u.idUtl = r.idUtl
                   WHERE u.emailUtl = :email AND u.mdpUtl = :password";
-
+       
         $res = $this->cnx->prepare($query);
         $res->bindParam(':email', $email);
         $res->bindParam(':password', $password);
