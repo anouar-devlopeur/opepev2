@@ -8,15 +8,15 @@ if (isset($_POST['submitConn'])) {
     $emailConn = $_POST["emailConn"];
     $mdpConn = $_POST["mdpConn"];
     if (!empty($emailConn) && !empty($mdpConn)) {
-       
-        // if ($login->isValidEmail($emailConn)) {
-       
-        // }else {
-        //     echo "<script>alert('Email incorrect ')</script>";
-        // }
         $login=new Login();
+        if ($login->isValidEmail($emailConn)) {
+       
+        }else {
+            echo "<script>alert('Email incorrect ')</script>";
+        }
+       
         $login->login($emailConn, $mdpConn);
-
+        $_SESSION["email"]= $emailConn;
 
     }
   

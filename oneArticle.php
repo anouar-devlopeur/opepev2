@@ -1,24 +1,32 @@
 <?php
+include './CLASS/Connection.php';
+include './CLASS/articleclass.php';
+include './CLASS/commentaire.php';
+
+
 
 session_start();
-
-include './CLASS/Connection.php';
-if(isset($_GET['id'])) {
-    $idArticle = $_GET['id'];
-
-    // $query = "SELECT * FROM articles WHERE idAr = $idArticle";
-    // $result = mysqli_query($conn, $query);
-
-    // if($result) {
-    //     $article = mysqli_fetch_assoc($result);
-    // } else {
-    //     echo "Erreur de récupération des données de l'article : " . mysqli_error($conn);
-      
-    // }
-} else {
-    // echo "Identifiant de l'article non spécifié.";
-    // exit();
+$email=$_SESSION['emailUtl']; 
+$idUtl=$_SESSION['idUtl'];
+if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
+    $_SESSION['idUtl'] = "";
+    session_destroy();
+    header('location: index.php');
+    exit();
 }
+if(isset($_GET['id'])) {
+   $idArticle = $_GET['id'];
+   $Article=new Articleclass();
+   $article= $Article->affiche_by_idarticle($idArticle );
+ 
+} 
+// if(isset($_POST['cmn'])){
+//     $comnt=new Commentaire();
+//     $comnt->setContenuCom($_POST['donnecmn']);
+//     $comnt->setIdUtl($idUtl);
+//     $comnt->setIdAr($_POST['articleid']);
+//     $comnt->insertContenuCom();
+// }
 ?>
 <!Doctype html>
 <html lang="en">
@@ -174,6 +182,7 @@ if(isset($_GET['id'])) {
 </style>
 </head>
   <body>
+
   <header style=" background-color: #132a137e; height:80px; width:100%; position:absolute;  top:0;">
         <nav class="nav container">
                 <a href="#" class="nav__logo">
@@ -210,25 +219,92 @@ if(isset($_GET['id'])) {
     </header>
   
     <!-- End Navbar -->
-            <div class="bg-white flex justify-center">
-                <div class="mt-10 mx-8 mb-36" style="width: 50%;">
-                                    <img style="width: 100%;" src="./img/IMG-657c1a9f2e37d2.63795595.jpeg" alt="<?php echo $article['nomAr']; ?>" class="">
+    <section class="" style=" margin-top:6%;  ">
+    <div class="d-flex justify-content-start gap-5 align-items-lg-start w-100 " style="height: auto;">
 
-                    <!-- <img style="width: 100%;" src="<?php echo $article['imageAr']; ?>" alt="<?php echo $article['nomAr']; ?>" class=""> -->
-                </div>
-                <div class="w-1/2 flex flex-col justify-center items-start">
-                                        <h1 class="text-3xl font-bold text-gray-800 mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae enim nemo velit temporibus tempore quae maiores doloremque neque asperiores, esse incidunt voluptatem, repudiandae deleniti illo minima ullam cum perspiciatis accusamus!</h1>
+ 
+        <div class="ms-2 w-50 mb-2">
+                <img style=" width:100%" src="<?php echo $article['imageAr']; ?>" alt="<?php echo $article['nomAr']; ?>" class=""> 
 
-                    <!-- <h1 class="text-3xl font-bold text-gray-800 mb-4"><?php echo $article['nomAr']; ?></h1> -->
-                    <!-- <p class="text-base text-gray-600 text-left"><?php echo $article['descriptionAr']; ?></p> -->
-                </div>
-            </div>
+        </div>
+        <div class="w-50">
+            <h3 class="text-base fw-bold fs-2"><?php echo $article['nomAr']; ?></h3>
+            <p class="fs-4 text-base fw-bold">
+            <?php echo $article['descriptionAr']; ?>
+          </p>
+         
+              <div>
+
+               <div class="ps-3 pb-4">
+                                            <?php 
+                        $comnt = new Commentaire();
+                       
+                        $rowcmn = $comnt->get_ContenuCom($idArticle);
+                           
+                   
+                        foreach ($rowcmn as $row) {
+                         
+                        ?>
+                            <div>
+                                <h3 class="fs-3"><?php echo $row['nomUtl']  ?></h3>
+                                <!-- <p  name="comntaire" class="fs-5 mb-2 border-0"  ><?php echo $row['contenuCom']  ?></p> -->
+                                <form action="./traitement/updatCmnt.php" method="post">
+                                <input disabled name="comntaire" class="fs-5 mb-2 border-0" value="<?php echo $row['contenuCom']  ?>" id="inputField<?= $row['idCom'] ?>"></input>
+                                
+                                <?php if ($row['emailUtl'] == $email && $row['idUtl']==$idUtl) { ?>
+                                    <i id="toggleButton<?= $row['idCom'] ?>" class="fa fa-ellipsis-v" onclick="toggleButtonAndEnableInput(<?= $row['idCom'] ?>)" aria-hidden="true"></i>
+                                <i id="toggleaff<?= $row['idCom'] ?>" class="fa fa-ellipsis-v" onclick="toggleButtonAnddisabled(<?= $row['idCom'] ?>)" aria-hidden="true" style="display: none;"></i>
+                        
+                                    <div class="me-5 d-flex gap-2">
+                                        <a id="hiddenButton<?= $row['idCom'] ?>" href="./traitement/supprimercmnt.php?idCom=<?php echo $row['idCom']; ?>&idArticle=<?php echo $idArticle; ?>" class="btn btn-danger" name="supcmn" style="display: none;">Supprimer</a>
+                                            <input type="hidden" name="comment_id" value="<?php echo $row['idCom']; ?>">
+                                            <input type="hidden" name="Article_id" value="<?php echo $idArticle; ?>">
+                                            <button type="submit" id="hidden<?= $row['idCom'] ?>" class="btn btn-success" name="modifier" style="display: none;">Modifier</button>
+                                        </form>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        <?php
+                        }
+                        ?>
+
+        
+                    
+                    <form  method="post"action="./traitement/insertComnt.php"  class="mt-2">
+                    <input type="hidden" name="articleid" value="<?php echo $idArticle ?>">
+                   <textarea class="form-control w-75" type="text" placeholder="Commentaie..." name="donnecmn" ></textarea>
+                    <input class="w-25 mt-2 btn btn-info" name="cmn" type="submit" value="Commentaire">
+                    </form>
+        
+                    </div>        
+ </div>
+           
+           
+          
             
+          </section>
+         
 
-            </div>
-       
-            
 
-</body>
-</html>
+
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+<script>
+    
+    function toggleButtonAndEnableInput(id) {
+        document.getElementById('inputField'+id).removeAttribute('disabled');
+        document.getElementById('toggleButton'+id).style.display = 'none';
+        document.getElementById('toggleaff'+id).style.display = 'inline';
+        document.getElementById('hiddenButton'+id).style.display = 'inline';
+        document.getElementById('hidden'+id).style.display = 'inline';
+    }
+
+    function toggleButtonAnddisabled(id) {
+        document.getElementById('inputField'+id).setAttribute('disabled', 'true');
+        document.getElementById('toggleButton'+id).style.display = 'inline';
+        document.getElementById('toggleaff'+id).style.display = 'none';
+        document.getElementById('hiddenButton'+id).style.display = 'none';
+        document.getElementById('hidden'+id).style.display = 'none';
+    }
+</script>
 <?php include './include/footer2.php' ?>

@@ -1,5 +1,6 @@
 <?php 
 include '../CLASS/utilisateur.php';
+include '../CLASS/validation.php';
 //-------------------------------- INSCRIPTION-----------------------------------------
  if (isset($_POST['submitInsc'])) {
 
@@ -9,16 +10,17 @@ include '../CLASS/utilisateur.php';
     $mdp = $_POST["mdpInsc"];
 
     $utilisateur = new Utilisateur();
+    $validation=new Validation();
 
     if (!empty($email) && !empty($mdp) && !empty($nom) && !empty($prenom)) {
        
       
-    //     if(!$validation->isValidEmailutli($email)){
-    //         echo "<script>alert('Email incorrect')</script>";
-    //     }
-    //    else  if(  !$validation->isValidnomutli($nom,$prenom)){
-    //     echo "<script>alert('nom ou prenom Alphabitique')</script>";
-    //    }
+        if(!$validation->isValidEmailutli($email)){
+            echo "<script>alert('Email incorrect')</script>";
+        }
+       else  if(  !$validation->isValidnomutli($nom,$prenom)){
+        echo "<script>alert('nom ou prenom Alphabitique')</script>";
+       }
     
             $utilisateur->setNomUtl($nom);
             $utilisateur->setEmailUtl($email);

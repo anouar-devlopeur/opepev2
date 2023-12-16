@@ -2,6 +2,8 @@
 include '../CLASS/Connection.php';
 class Utilisateur {
       private $cnx;
+      private $idutl;
+      private $role;
       private $nomUtl;
       private $prenomUtl;
       private $emailUtl	;
@@ -13,6 +15,25 @@ public function __construct() {
     $this->cnx = $djd->getConnection();
 }
 
+// Getter for $idutl
+public function getIdUtl() {
+    return $this->idutl;
+}
+
+// Setter for $idutl
+public function setIdUtl($idutl) {
+    $this->idutl = $idutl;
+}
+
+// Getter for $role
+public function getRole() {
+    return $this->role;
+}
+
+// Setter for $role
+public function setRole($role) {
+    $this->role = $role;
+}
 public function getNomUtl() {
     return $this->nomUtl;
 }
@@ -74,8 +95,16 @@ public function insertutilisateurs() {
 
 // role
 public function role($role, $idUtilisateur) {
-    $query = "INSERT INTO roles (nomRole, idUtl) VALUES ('$role', $idUtilisateur)";
-    $result =$this->cnx->prepare($query);
+    $query = "INSERT INTO roles (nomRole, idUtl) VALUES (:role, :idUtilisateur)";
+    $result = $this->cnx->prepare($query);
+    
+
+    $result->bindParam(':role', $role, PDO::PARAM_STR);
+    $result->bindParam(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
+    
+ 
+    $result->execute();
+    
 
     if ($result->execute()) {
         header("Location: ../index.php");

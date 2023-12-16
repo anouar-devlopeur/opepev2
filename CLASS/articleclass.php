@@ -125,4 +125,12 @@ private $tags;
         $results = $result->fetchAll(PDO::FETCH_ASSOC);
                 return $results;
     }
+    public function affiche_by_idarticle($idArticle){
+    $query = "SELECT * FROM articles WHERE idAr = :idArticle";
+    $stmt = $this->cnx->prepare($query);
+    $stmt->bindParam(':idArticle', $idArticle, PDO::PARAM_INT);
+    $stmt->execute();
+     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+     return $result;
+    }
 }

@@ -1,15 +1,14 @@
 <?php
-include '../CLASS/Connection.php';
-include '../CLASS/articleclass.php';
 
-if(isset($_GET['search'])) {
+include '../CLASS/Connection.php';
+include '../CLASS/tags.php';
+if(isset($_GET['TAGGid'])) {
+    $id = $_GET['TAGGid'];
    ?>
    <div class="w-100 row gap-4   mx-auto justify-content-center">
    <?php
-   $search = $_GET['search'];
-   $idth = $_GET['idTh'];
-   $Article=new Articleclass();
-   $result=  $Article->search( $idth,$search);
+$tag = new Tags();
+$result = $tag->get_tag_by_id($id); 
 foreach($result as $row) {
     $articleId= $row['nomAr'];
 

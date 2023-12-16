@@ -505,6 +505,27 @@ $result = $Theme->article_by_idth($idth);
 
     })
   })
+  var btntag = document.querySelectorAll('.btns');
+    btntag.forEach(btn => {
+      btn.addEventListener("click" , function () {
+      let value = btn.value;
+      console.log(value);
+
+      let xml = new XMLHttpRequest();
+
+      xml.onload = function () {
+        if(this.status == 200 && this.readyState==4) {
+          document.getElementById('cardT').innerHTML=this.responseText;
+
+        }
+      }
+      var idth = "<?php echo $idth; ?>";  
+       xml.open('GET', './traitement/tagsArticle.php?TAGGid=' + value + '&idth=' + idth, true);
+      // xml.open('GET','tags.php?TAGGid='+value +'&idth='<?php $idth ?> );
+      xml.send();
+    })
+    })
+
 </script>
 <?php
 include './include/footer2.php';

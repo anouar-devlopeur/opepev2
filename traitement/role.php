@@ -1,6 +1,7 @@
 <?php
 include '../CLASS/utilisateur.php';
 
+
 //-------------------------------- INSCRIPTION-----------------------------------------
 
 if (isset($_POST['submitRole'])) {

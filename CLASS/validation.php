@@ -2,9 +2,11 @@
 class Validation
 {
     private $cnx;
-    public function __construct($cnx)
+    public function __construct()
     {
-        $this->cnx = $cnx;
+        $db=new Connection();
+        $this->cnx = $db->getConnection();
+    
     }
     //validation email
 

@@ -12,9 +12,9 @@ if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
     exit();
 }
 $userId = $_SESSION['idUtl'];
+$email=$_SESSION['emailUtl']; 
 $client=new client();
  $count=$client->countplant($userId);
-
 
 ?>
 
@@ -297,7 +297,8 @@ $client=new client();
                 $plantesQuery=$client->plantesQuery($sql);
 
             }
-             elseif(isset($_GET['search_but'])&&(!empty($_GET['search_but']))) {
+             elseif(isset($_GET['search_but'])||(!empty($_GET['search_but']))) {
+                
                $nomPlante = $_GET['search'];
                $sql="SELECT * FROM plantes WHERE nomPlante LIKE '%$nomPlante%'";
                $plantesQuery=$client->plantesQuery($sql);

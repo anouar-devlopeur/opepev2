@@ -18,4 +18,14 @@ class Tags{
       return $result;
 
     }
+    public function get_tag_by_id($id){
+      $req = "SELECT * FROM articles  
+      WHERE tagsAr LIKE :id";
+$stmt = $this->cnx->prepare($req);
+$stmt->bindValue(':id', '%' . $id . '%', PDO::PARAM_STR);
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+return $result;
+   
+    }
 }

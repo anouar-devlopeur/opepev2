@@ -15,9 +15,9 @@ class client{
     }
     public function plantesQuery($sql){
         $res=$this->cnx->query($sql);
-        if ($res !== false) {
+  
             return $res;
-        }
+      
 
     }
     public function pagination(){

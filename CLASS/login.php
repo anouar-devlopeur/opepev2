@@ -12,7 +12,7 @@ class Login {
         return preg_match($pattern, $email);
     }
     public function login($email, $password) {
-        $query = "SELECT r.nomRole, u.idUtl
+        $query = "SELECT r.nomRole, u.idUtl,u.emailUtl
                   FROM utilisateurs u
                   JOIN roles r ON u.idUtl = r.idUtl
                   WHERE u.emailUtl = :email AND u.mdpUtl = :password";
@@ -34,9 +34,11 @@ class Login {
 
                 if ($nomRole == "client") {
                     $_SESSION['idUtl'] = $result['idUtl'];
+                    $_SESSION['emailUtl'] = $result['emailUtl'];
                     header('location: ./client.php');
                 } elseif ($nomRole == "admin") {
                     $_SESSION['idUtl'] = $result['idUtl'];
+                    $_SESSION['emailUtl'] = $result['emailUtl'];
                     header('location: ./admin.php');
                 } else {
                     echo "<script>alert('Rôle inconnu')</script>";
