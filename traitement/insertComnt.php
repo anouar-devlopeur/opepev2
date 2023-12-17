@@ -7,10 +7,10 @@ include '../CLASS/commentaire.php';
 session_start();
 $idUtl=$_SESSION['idUtl'];
 
-
+$comnt=new Commentaire();
 if(isset($_POST['cmn'])){
     $idart= $_POST['articleid']; 
-    $comnt=new Commentaire();
+
     $comnt->setContenuCom($_POST['donnecmn']);
     $comnt->setIdUtl($idUtl);
     $comnt->setIdAr($idart);

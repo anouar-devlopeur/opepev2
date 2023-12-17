@@ -4,7 +4,7 @@ include './CLASS/articleclass.php';
 include './CLASS/commentaire.php';
 
 
-
+$comnt = new Commentaire();
 session_start();
 $email=$_SESSION['emailUtl']; 
 $idUtl=$_SESSION['idUtl'];
@@ -20,6 +20,7 @@ if(isset($_GET['id'])) {
    $article= $Article->affiche_by_idarticle($idArticle );
  
 } 
+
 // if(isset($_POST['cmn'])){
 //     $comnt=new Commentaire();
 //     $comnt->setContenuCom($_POST['donnecmn']);
@@ -237,7 +238,7 @@ if(isset($_GET['id'])) {
 
                <div class="ps-3 pb-4">
                                             <?php 
-                        $comnt = new Commentaire();
+                    
                        
                         $rowcmn = $comnt->get_ContenuCom($idArticle);
                            
@@ -248,7 +249,7 @@ if(isset($_GET['id'])) {
                             <div>
                                 <h3 class="fs-3"><?php echo $row['nomUtl']  ?></h3>
                                 <!-- <p  name="comntaire" class="fs-5 mb-2 border-0"  ><?php echo $row['contenuCom']  ?></p> -->
-                                <form action="./traitement/updatCmnt.php" method="post">
+                                <!-- <form  method="post" action="./traitement/updatCmnt.php"> -->
                                 <input disabled name="comntaire" class="fs-5 mb-2 border-0" value="<?php echo $row['contenuCom']  ?>" id="inputField<?= $row['idCom'] ?>"></input>
                                 
                                 <?php if ($row['emailUtl'] == $email && $row['idUtl']==$idUtl) { ?>
@@ -260,7 +261,7 @@ if(isset($_GET['id'])) {
                                             <input type="hidden" name="comment_id" value="<?php echo $row['idCom']; ?>">
                                             <input type="hidden" name="Article_id" value="<?php echo $idArticle; ?>">
                                             <button type="submit" id="hidden<?= $row['idCom'] ?>" class="btn btn-success" name="modifier" style="display: none;">Modifier</button>
-                                        </form>
+                                        <!-- </form> -->
                                     </div>
                                 <?php } ?>
                             </div>
@@ -270,7 +271,7 @@ if(isset($_GET['id'])) {
 
         
                     
-                    <form  method="post"action="./traitement/insertComnt.php"  class="mt-2">
+                    <form  method="post" action="./traitement/insertComnt.php"  class="mt-2">
                     <input type="hidden" name="articleid" value="<?php echo $idArticle ?>">
                    <textarea class="form-control w-75" type="text" placeholder="Commentaie..." name="donnecmn" ></textarea>
                     <input class="w-25 mt-2 btn btn-info" name="cmn" type="submit" value="Commentaire">
