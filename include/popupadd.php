@@ -9,10 +9,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="addcategory.php" enctype="multipart/form-data">
+                    <form method="POST" action="./traitement/addcategory.php" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="img" class="col-form-label">Categorie:</label>
-                            <input type="text" class="form-control" id="img" accept=".jpg,.png,.jpeg" name="img">
+                            <input type="text" class="form-control" name="cat">
                         </div>
                         <!-- Ajoutez d'autres champs pour la catégorie -->
                         <div class="modal-footer">

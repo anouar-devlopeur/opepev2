@@ -322,7 +322,7 @@ $client=new client();
                     echo '<div class="col-md-4 mb-4">';
                     echo '<div class="card">';
                     echo '<div class="d-flex justify-content-center">';
-                    echo '<img " src="' . $plante['imagePlante'] . '" class="card-img-top card-img-custom" alt="' . $plante['nomPlante'] . '">';
+                    echo '<img " src="./img/' . $plante['imagePlante'] . '" class="card-img-top card-img-custom" alt="' . $plante['nomPlante'] . '">';
                     echo '</div>';
                     echo '<div class="card-body">';
                     echo '<h5 class="card-title">' . $plante['nomPlante'] . '</h5>';

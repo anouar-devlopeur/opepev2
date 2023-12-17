@@ -20,7 +20,7 @@ session_start();
                              <span class="text-white text-uppercase fs-4">Home</span></a></li>
                     <li class="h7"><a class=" nav-link text-dark" href="adminCat.php">
                          <span class="text-white text-uppercase fs-4">categorie</span></a></li>
-                    <li class="h7"><a class=" nav-link text-dark" href="Plant.php">
+                    <li class="h7"><a class=" nav-link text-dark" href="adminPlant.php">
                          <span class="text-white text-uppercase fs-4">plante</span></a></li>
                     <li class="h7"><a class=" nav-link text-dark" href="theme.php">
                          <span class="text-white text-uppercase fs-4">Theme</span></a></li>

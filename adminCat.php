@@ -9,6 +9,7 @@ include './CLASS/categorie.php'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/style.css">
+    
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
@@ -17,10 +18,11 @@ include './CLASS/categorie.php'
 <body>
 <main class="dashboard d-flex">
 <?php
+     
     include './include/sideber.php'
     ?>
     <!-- start content page -->
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-4 w-75">
        
             <!-- start student list table -->
             <div class="student-list-header d-flex justify-content-between align-items-center py-2">
@@ -29,7 +31,8 @@ include './CLASS/categorie.php'
                     <div class="short">
                         <i class="far fa-sort"></i>
                     </div>
-                    <?php include './include/popupadd.php'; ?>
+                    <?php
+                     include './include/popupadd.php'; ?>
                 </div>
             </div>
             <div class="table-responsive">
@@ -49,13 +52,14 @@ include './CLASS/categorie.php'
                           $res=$cat->GetCat();
                     
                           foreach($res as $value):
-                        ?>
+                           $id= $value['idCategorie'] ?>
+                        
                       <tr class="bg-white align-middle">
                                  <td><?php echo $value['idCategorie'] ?></td>
                                 <td><?php echo $value['nomCategorie'] ?></td>
                                 <td class="d-md-flex gap-3 mt-3">
-                                  <a href="./updateCat.php?Id=<?php echo $value['idCategorie']?>"><i class="far fa-pen"></i></a>
-                                  <a href="remove.php?Id=<?php echo $value['idCategorie']?>"><i class="far fa-trash"></i></a>
+                                <a href="updateCat.php?Id=<?php echo $value['idCategorie']?>"><i class="far fa-pen"></i></a>
+                                <a href="./traitement/remove.php?Id=<?php echo $value['idCategorie']?>"><i class="far fa-trash"></i></a>
                                 </td>
                         </tr> 
 
@@ -66,7 +70,11 @@ include './CLASS/categorie.php'
             </div>
             <!-- end student list table -->
         </div>
+        
 </main>
  <script src="js/bootstrap.bundle.js"></script>
+ <script>
+ 
+ </script>
 </body>
 </html>

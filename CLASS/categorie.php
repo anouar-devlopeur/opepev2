@@ -40,5 +40,30 @@ class Categorie{
      
        
     }
+    public function AddCategorie() {
+        $req = 'INSERT INTO categories (nomCategorie) VALUES (:cat)';
+        $stmt = $this->cnx->prepare($req);
+        $stmt->bindParam(':cat', $this->nomCat, PDO::PARAM_STR);
+        $stmt->execute();
+        
+    }
+    public function UpCategorie($id) {
+        $req = 'UPDATE `categories` SET `nomCategorie` = :nom WHERE `idCategorie` = :id';
+        $stmt = $this->cnx->prepare($req);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':nom', $this->nomCat); 
+        $res=$stmt->execute();
+        return $res;
+    
+   
+    }
+    
+    public function DeleteCategorie($id) {
+        $dellete='DELETE FROM `categories` WHERE idCategorie= :id';
+        $stmt = $this->cnx->prepare($dellete);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+       $res= $stmt->execute();
+       return $res;
+    }
     
 }

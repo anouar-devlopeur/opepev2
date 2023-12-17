@@ -22,15 +22,15 @@ include './CLASS/tags.php';
     <title>Dashbord</title>
 </head>
 <body>
-<main class="dashboard d-flex">
+<main class=" d-flex">
     <?php
     include './include/sideber.php'
     ?>
-      <div class="container-fluid px-4">
+      <div class="px-4">
     
-      <div class="container-fluid px">
       
-            <div class="cards row gap-3 justify-content-center mt-5">
+      
+            <div class="cards row gap-5 justify-content-center  " style="width:100%;margin-top:20%">
                 <div class=" card__items card__items--blue col-md-3 position-relative bg-danger rounded-2">
                     <div class="card__students d-flex flex-column gap-2 mt-3">
                       
@@ -127,7 +127,7 @@ include './CLASS/tags.php';
               
             </div>
 
-        </div>
+       
  
                
         </div>
