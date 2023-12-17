@@ -15,4 +15,11 @@ class Plante{
     
 
      }
+     public function CountPlant(){
+      $query = "SELECT COUNT(*) as totalplant FROM plantes";
+      $stmt = $this->cnx->prepare($query);
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+       return $result;
+    }
 }

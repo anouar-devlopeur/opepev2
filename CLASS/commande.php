@@ -49,12 +49,11 @@ class Commande{
         $this->quantite = $quantite;
     }
   public function getCommande(){
-      $requeteCommande = "INSERT INTO commandes (idUtl) VALUES (:idUser)";
-      $resultCommande = $this->cnx->prepare($requeteCommande);
-      $resultCommande->bindParam(':idUser', $this->idUser, PDO::PARAM_INT);
+    $requeteCommande = "INSERT INTO commandes SET idUtl = :idUser";
+$resultCommande = $this->cnx->prepare($requeteCommande);
+$resultCommande->bindParam(':idUser', $this->idUser, PDO::PARAM_INT);
 
-      return $resultCommande->execute();
-
+return $resultCommande->execute();
     
   }
   
@@ -71,6 +70,13 @@ class Commande{
         $resultDetailsCommande->bindParam(':idUser', $idUser, PDO::PARAM_INT);
     
         return $resultDetailsCommande->execute();
+  }
+  public function CountCommande(){
+    $query = "SELECT COUNT(*) as total FROM details_commande";
+    $stmt = $this->cnx->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+     return $result;
   }
 
 }

@@ -28,4 +28,11 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 return $result;
    
     }
+    public function CountTags(){
+      $query = "SELECT COUNT(*) as totalCat FROM tags_theme";
+      $stmt = $this->cnx->prepare($query);
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+       return $result;
+    }
 }

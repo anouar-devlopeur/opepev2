@@ -17,9 +17,15 @@ class Theme{
             $stmt =$this->cnx->query($reqarticle);
                return $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        ;
         
 
      }
+     public function CountTheme(){
+      $query = "SELECT COUNT(*) as totalCat FROM themes";
+      $stmt = $this->cnx->prepare($query);
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+       return $result;
+    }
 
 }

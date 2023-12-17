@@ -10,6 +10,7 @@ if (isset($_POST['commander'])) {
   
     $result=$Pannier->affichePannier($userId);
      if ($result) {
+     $Commande->setIdUser($userId);
    $res=$Commande->getCommande();
    if($res){
     $Commande->details_commande($userId);

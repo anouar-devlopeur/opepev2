@@ -133,4 +133,11 @@ private $tags;
      $result = $stmt->fetch(PDO::FETCH_ASSOC);
      return $result;
     }
+    public function CountArticle(){
+        $query = "SELECT COUNT(*) as totalplant FROM articles";
+        $stmt = $this->cnx->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+         return $result;
+      }
 }

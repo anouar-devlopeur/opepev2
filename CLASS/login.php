@@ -1,4 +1,5 @@
 <?php 
+session_start();
 class Login {
     private $cnx;
 
@@ -12,7 +13,7 @@ class Login {
         return preg_match($pattern, $email);
     }
     public function login($email, $password) {
-        $query = "SELECT r.nomRole, u.idUtl,u.emailUtl
+        $query = "SELECT r.nomRole, u.idUtl,u.emailUtl,u.prenomUtl
                   FROM utilisateurs u
                   JOIN roles r ON u.idUtl = r.idUtl
                   WHERE u.emailUtl = :email AND u.mdpUtl = :password";
@@ -29,7 +30,6 @@ class Login {
             $result = $res->fetch(PDO::FETCH_ASSOC);
 
             if ($result) {
-                session_start();
                 $nomRole = $result['nomRole'];
 
                 if ($nomRole == "client") {
@@ -37,8 +37,10 @@ class Login {
                     $_SESSION['emailUtl'] = $result['emailUtl'];
                     header('location: ./client.php');
                 } elseif ($nomRole == "admin") {
+                    // die($result['prenomUtl']);
                     $_SESSION['idUtl'] = $result['idUtl'];
                     $_SESSION['emailUtl'] = $result['emailUtl'];
+                    $_SESSION['prenomUtl'] = $result['prenomUtl'];
                     header('location: ./admin.php');
                 } else {
                     echo "<script>alert('Rôle inconnu')</script>";

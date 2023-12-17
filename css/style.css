@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@200&display=swap');
+*{
+    font-family: 'Montserrat',sans-serif;
+    font-style: normal;
+}
+
+
+
+
+.E-classe {
+    border-left:solid 6px #1310bd;
+}
+em{
+    color: #1095bd;
+}
+
+
+
+/* start dashboard */
+/* start sidebar */
+.bg-sidebar{
+    background-color: #6dd30d;
+    transition: margin 0.6s ease-in-out;
+    z-index: 1;
+}
+
+.h7{
+    font-size: 18px;
+}
+/* end sidebar */
+/* start cards */
+.admin-color{
+    color: #1f14b7 ;
+    font-weight: bold;
+}
+
+
+/* end cards */
+/* end dashboard */
+
+
+/* start students list  */
+
+.student-list-header{
+    border-bottom: 2px solid #E5E5E5;
+}
+.student-list-header i{
+    color:#00C1FE;
+}
+
+.btn-primary{
+    background-color: #00C1FE;
+  border-color: #00C1FE;
+}
+.btn-primary:hover {
+    background-color: #04a6d8;
+  border-color: #04a6d8;
+}
+.btn-primary:focus{
+    background-color: none;
+}
+/* end students list */
+.fa-search{
+    left:-30px;
+}
+.bg-sidebar a:hover{
+    background-color: #c0cdbf;
+    border-radius: 10px;
+    margin-left: 1%;
+    width: 80%;
+}
+.valid{
+    color: red;
+}
+@media screen and (min-width:768px){
+    .bg-sidebar{
+        position: sticky !important;
+        top: 0;
+        width: 25% !important;
+    }
+    .hidden-sidebar{
+        margin-left: -25%;
+        
+    }
+}
+@media screen and (max-width:768px){
+    .hidden-sidebar-mobile{
+        margin-left: -50%;
+    }
+    
+}
