@@ -12,7 +12,7 @@ $result=$Article->affiche($idth);
 if( $result){
 foreach($result as $row)  {
 
-
+$
     ?>
 
 <div class="card mb-4 col- "style="width:25%">

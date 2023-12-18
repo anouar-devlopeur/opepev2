@@ -236,39 +236,34 @@ if(isset($_GET['id'])) {
               <div>
 
                <div class="ps-3 pb-4">
-                                            <?php 
-                    
-                       
-                        $rowcmn = $comnt->get_ContenuCom($idArticle);
-                           
-                   
-                        foreach ($rowcmn as $row) {
-                         
-                        ?>
-                            <div>
-                                <h3 class="fs-5"><?php echo $row['nomUtl']  ?></h3>
-                                <!-- <p  name="comntaire" class="fs-5 mb-2 border-0"  ><?php echo $row['contenuCom']  ?></p> -->
-                                <form  method="post" action="./traitement/updatCmnt.php">
-                                <input disabled name="comntaire" class="fs-5 mb-2 border-0" value="<?php echo $row['contenuCom']  ?>" id="inputField<?= $row['idCom'] ?>"></input>
-                                
-                                <?php if ($row['emailUtl'] == $email && $row['idUtl']==$idUtl) { ?>
-                                    <i id="toggleButton<?= $row['idCom'] ?>" class="fa fa-ellipsis-v" onclick="toggleButtonAndEnableInput(<?= $row['idCom'] ?>)" aria-hidden="true"></i>
-                                <i id="toggleaff<?= $row['idCom'] ?>" class="fa fa-ellipsis-v" onclick="toggleButtonAnddisabled(<?= $row['idCom'] ?>)" aria-hidden="true" style="display: none;"></i>
-                        
-                                    <div class="me-5 d-flex gap-2">
-                                        <a id="hiddenButton<?= $row['idCom'] ?>" href="./traitement/supprimercmnt.php?idCom=<?php echo $row['idCom']; ?>&idArticle=<?php echo $idArticle; ?>" class="btn btn-danger" name="supcmn" style="display: none;">Supprimer</a>
-                                            <input type="hidden" name="comment_id" value="<?php echo $row['idCom']; ?>">
-                                            <input type="hidden" name="Article_id" value="<?php echo $idArticle; ?>">
-                                            <button type="submit" id="hidden<?= $row['idCom'] ?>" class="btn btn-success" name="modifier" style="display: none;">Modifier</button>
-                                     
-                                    </div>
-                                <?php } ?>
-                                </form>
-                            </div>
-                            
-                        <?php
-                        }
-                        ?>
+               <?php
+$rowcmn = $comnt->get_ContenuCom($idArticle);
+
+foreach ($rowcmn as $row) {
+    ?>
+    <div>
+        <h3 class="fs-5"><?php echo $row->nomUtl; ?></h3>
+        <!-- <p name="comntaire" class="fs-5 mb-2 border-0"><?php echo $row->contenuCom; ?></p> -->
+        <form method="post" action="./traitement/updatCmnt.php">
+            <input disabled name="comntaire" class="fs-5 mb-2 border-0" value="<?php echo $row->contenuCom; ?>" id="inputField<?= $row->idCom ?>"></input>
+
+            <?php if ($row->emailUtl == $email && $row->idUtl == $idUtl) { ?>
+                <i id="toggleButton<?= $row->idCom ?>" class="fa fa-ellipsis-v" onclick="toggleButtonAndEnableInput(<?= $row->idCom ?>)" aria-hidden="true"></i>
+                <i id="toggleaff<?= $row->idCom ?>" class="fa fa-ellipsis-v" onclick="toggleButtonAnddisabled(<?= $row->idCom ?>)" aria-hidden="true" style="display: none;"></i>
+
+                <div class="me-5 d-flex gap-2">
+                    <a id="hiddenButton<?= $row->idCom ?>" href="./traitement/supprimercmnt.php?idCom=<?php echo $row->idCom; ?>&idArticle=<?php echo $idArticle; ?>" class="btn btn-danger" name="supcmn" style="display: none;">Supprimer</a>
+                    <input type="hidden" name="comment_id" value="<?php echo $row->idCom; ?>">
+                    <input type="hidden" name="Article_id" value="<?php echo $idArticle; ?>">
+                    <button type="submit" id="hidden<?= $row->idCom ?>" class="btn btn-success" name="modifier" style="display: none;">Modifier</button>
+                </div>
+            <?php } ?>
+        </form>
+    </div>
+<?php
+}
+?>
+
 
         
                     

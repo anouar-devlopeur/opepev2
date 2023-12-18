@@ -33,6 +33,7 @@ include './CLASS/theme.php';
 
     $the = new Theme();
     if (isset($_POST['addtheme'])) {
+        $idth = $_GET['Idpt'];
        $Name = $_POST['Name'];
        $Description= $_POST['Description'];
        $image = $_FILES['img']['name'];
@@ -43,10 +44,11 @@ include './CLASS/theme.php';
            // echo 'images est uplade';
        }
      
-    //    $the->setNomTh($Name);
-    //    $the->setDescriptionTh($Description);
-    //    $the->setImageTh($image);
-    // $the->InsertTheme();
+       $the->setNomTh($Name);
+       $the->setDescriptionTh($Description);
+       $the->setImageTh($image);
+    $the->UpdateTheme($idth);
+    header('Location:AdminTheme.php');
    }
 ?>
 

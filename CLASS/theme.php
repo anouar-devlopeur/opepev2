@@ -84,5 +84,16 @@ class Theme{
        $res= $stmt->execute();
        return $res;
     }  
+    public function UpdateTheme($id){
+        $req = 'UPDATE `themes` SET `nomTh` = :nom, `descriptionTh` = :dsc, `imageTh` = :img WHERE idTh = :id';
+        $stmt = $this->cnx->prepare($req);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':nom', $this->nomTh, PDO::PARAM_STR);
+        $stmt->bindParam(':dsc', $this->descriptionTh, PDO::PARAM_STR);
+        $stmt->bindParam(':img', $this->imageTh, PDO::PARAM_STR);
+        $res = $stmt->execute();
+        return $res;
+    }
+    
 
 }

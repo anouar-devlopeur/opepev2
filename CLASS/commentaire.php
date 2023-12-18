@@ -66,7 +66,7 @@ class Commentaire{
             $stmt->bindParam(':idAr', $idAr, PDO::PARAM_INT);
             $stmt->execute();
 
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
             return $result;
     }
     public function deleteContenuCom($idcmn) {
