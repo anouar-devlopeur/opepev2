@@ -29,7 +29,7 @@ include './CLASS/categorie.php';
 if (isset($_GET['Idp'])) {
     $idplant = $_GET['Idp'];
    $row= $plntae->get_plantid($idplant);
-   echo $row['nomPlante'];
+  //  echo $row['nomPlante'];
    
 }
 $msg="";

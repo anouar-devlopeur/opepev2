@@ -45,6 +45,21 @@ class Theme{
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $res;
     }
+    public function ThemeIdth($idth){
+        $query = "SELECT `idTh`, `nomTh`, `descriptionTh`, `imageTh` FROM `themes` where idth =:idTh";
+        $stmt = $this->cnx->prepare($query);
+        $stmt->bindParam(':idTh', $idth, PDO::PARAM_INT);
+        $stmt->execute();
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        $themes=array();
+        if($res){
+            $themes=new Themee($res['idTh'],$res['nomTh'],$res['descriptionTh'],$res['imageTh']);
+        }
+        
+       return $themes;
+        
+    }
+    
     
      public function CountTheme(){
       $query = "SELECT COUNT(*) as totalCat FROM themes";

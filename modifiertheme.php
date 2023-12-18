@@ -24,21 +24,30 @@ include './CLASS/theme.php';
  include './include/sideber.php'
     ?>
   <?php
-//    $cat=new Categorie();
-// if (isset($_GET['Id'])) {
-//     $idcat = $_GET['Id'];
-  
-// }
-// $msg="";
-// if (isset($_POST['send'])) {
-//   $categorie=$_POST['categorie'];
-//   $cat->setNomCat($categorie);
-// $res=$cat->UpCategorie($idcat);
+   $Theme=new Theme();
+   if (isset($_GET['Idpt'])) {
+       $idth = $_GET['Idpt'];
+      $row=$Theme->ThemeIdth($idth);
+      
+   }
 
-// if($res) {
-//  $msg="Categorie  éte Modiifier";
-// }
-// }
+    $the = new Theme();
+    if (isset($_POST['addtheme'])) {
+       $Name = $_POST['Name'];
+       $Description= $_POST['Description'];
+       $image = $_FILES['img']['name'];
+       $tempname = $_FILES['img']['tmp_name'];  
+       $folder = "../img/".$image;
+       
+       if(move_uploaded_file($tempname,$folder)){
+           // echo 'images est uplade';
+       }
+     
+    //    $the->setNomTh($Name);
+    //    $the->setDescriptionTh($Description);
+    //    $the->setImageTh($image);
+    // $the->InsertTheme();
+   }
 ?>
 
  
@@ -47,20 +56,20 @@ include './CLASS/theme.php';
                                 
                                 <div class="">
                                   <label for="recipient-name" class="col-form-label">Nom Theme:</label>
-                                  <input type="text" class="form-control" id="recipient-name" name="Name">
+                                  <input type="text" class="form-control" id="recipient-name" name="Name" value="<?=   $row->getNomTh()?>">
                                 </div>
                                 <div class="">
                                   <label for="recipient-name" class="col-form-label">Description:</label>
-                                  <input type="text" class="form-control" id="recipient-name" name="Description" >
+                                  <input type="text" class="form-control" id="recipient-name" name="Description" value="<?=   $row->getDescriptionTh()?>">
                                 </div>
                                 <div class="">
                                   <label for="recipient-name" class="col-form-label">Image:</label>
-                                  <input type="file" class="form-control" id="recipient-name" accept=".jpg,.png,.jpeg" name="img">
+                                  <input type="file" class="form-control" id="recipient-name" accept=".jpg,.png,.jpeg" name="img" value="<?=   $row->getImageTh()?>">
                                 </div>
 
                              
                                 <div class="modal-footer">
-                              <button type="submit" name="addtheme" class="btn btn-primary">Ajouter Theme</button>
+                              <button type="submit" name="addtheme" class="btn btn-primary">Update Theme</button>
                             </div>
                               </form>
 </div> 
