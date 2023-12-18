@@ -11,7 +11,7 @@ if (isset($_POST['addplant'])){
     $folder = "../img/".$image;
     
     if(move_uploaded_file($tempname,$folder)){
-        echo 'images est uplade';
+        // echo 'images est uplade';
     }
 $Name=$_POST['Name'];
 $Description=$_POST['Description'];
@@ -25,7 +25,7 @@ $plant->setImagePlante($image);
 $res=$plant->insertPlante();
 
 if($res){
-    echo 'hamid';
+    header('Location: ../adminPlant.php ');
 }
   
     

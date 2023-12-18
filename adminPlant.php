@@ -65,8 +65,8 @@ include './CLASS/categorie.php';
                                 <td><?php echo $value['prix'] ?></td>
                                 <td><?php echo $value['idCategorie'] ?></td> 
                                 <td class="d-md-flex gap-3 mt-3">
-                                  <a href="modifierplant.php?Id=<?php echo $value['idPlante']?>"><i class="far fa-pen"></i></a>
-                                  <a href="removeplante.php?Id=<?php echo $value['idPlante']?>"><i class="far fa-trash"></i></a>
+                                  <a href="modifierplant.php?Idp=<?php echo $value['idPlante']?>"><i class="far fa-pen"></i></a>
+                                  <a href="./traitement/remove.php?Idp=<?php echo $value['idPlante']?>"><i class="far fa-trash"></i></a>
                                 </td>
                         </tr> 
 

@@ -1,5 +1,11 @@
 <?php  
 session_start(); 
+if (empty($_SESSION['prenomUtl'])|| isset($_POST['logout'])) {
+    $_SESSION['prenomUtl'] = "";
+    session_destroy();
+    header('location: ./index.php');
+    exit();
+}
 // include './CLASS/Connection.php';
 ?>
 <div class="bg-sidebar vh-100 w-50 position-fixed">
@@ -29,10 +35,12 @@ session_start();
                     <li class="h7"><a class=" nav-link text-dark" href="tagsdash.php">
                          <span class="text-white text-uppercase fs-4">Tags</span></a></li>
                 </ul>
+                <form  method="post" >
                 <ul class="logout d-flex justify-content-start list-unstyled">
-                    <li class="w-100 fs-3 "><a class="nav-link text-dark" href="./index.php"><span>Logout</span><i
-                                class="fal fa-sign-out-alt ms-2"></i></a></li>
+                    <li class="w-100 fs-3  "><button type="submit" class="nav-link text-dark border-0 ms-5" name="logout" ><span>Logout</span><i
+                                class="fal fa-sign-out-alt ms-2"></i></button></li>
                 </ul>
+                </form>
             </div>
 
         </div>

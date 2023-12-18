@@ -109,7 +109,37 @@ class Plante{
         return $result;
 
     }
-    public function dellet_plante($idUser){
-
+    public function get_plantid($idPlant) {
+        $query = "SELECT * FROM plantes WHERE idPlante = :id";
+        $stmt = $this->cnx->prepare($query);
+        $stmt->bindValue(':id', $idPlant, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    
+    public function dellet_plante($id){
+        $dellete='DELETE FROM `plantes` WHERE idPlante= :id';
+        $stmt = $this->cnx->prepare($dellete);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+       $res= $stmt->execute();
+       return $res;
+    }
+    public function update_plante($id) {
+        $query = 'UPDATE `plantes` SET `nomPlante`=:nom, `imagePlante`=:img, `descriptionPlante`=:descriptionPlante, `stock`=:stock, `prix`=:prix, `idCategorie`=:idcat WHERE idPlante = :id';
+    
+        $stmt = $this->cnx->prepare($query);
+    
+        $stmt->bindValue(':nom', $this->nomPlante, PDO::PARAM_STR);
+        $stmt->bindValue(':img', $this->imagePlante, PDO::PARAM_STR);
+        $stmt->bindValue(':descriptionPlante', $this->descriptionPlante, PDO::PARAM_STR);
+        $stmt->bindValue(':stock', $this->stock, PDO::PARAM_INT);
+        $stmt->bindValue(':prix', $this->prix, PDO::PARAM_INT);
+        $stmt->bindValue(':idcat', $this->idCat, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    
+        $res = $stmt->execute();
+    
+        return $res;
     }
 }
