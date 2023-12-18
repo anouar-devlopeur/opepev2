@@ -36,7 +36,7 @@
                                   foreach($res as $row){
                                    ?>
                                  
-                                        <option value="<?php echo $row['idCategorie'] ?>" ><?php echo $row['nomCategorie'] ?></option>
+                                        <option value="<?php echo $row->getIdcat()?>" ><?php echo $row->getNomCat() ?></option>
                                         <?php } ?>
                                     </select>
 

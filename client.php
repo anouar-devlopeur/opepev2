@@ -268,8 +268,9 @@ $client=new client();
                         <?php
                         $Categorie=new Categorie();
                            $rows= $Categorie->getCategorie();
+                           
                            foreach ($rows as $row ) {
-                            echo '<option style="color: black" value="' .  $row['idCategorie'] . '">' .  $row['nomCategorie'] . '</option>';
+                            echo '<option style="color: black" value="' .  $row->getIdcat() . '">' .  $row->getNomCat(). '</option>';
                            }
                         ?>
                     </select>

@@ -1,4 +1,5 @@
 <?php 
+include './CLASS/planty.php';
 class Plante{
     private $cnx;
     private $nomPlante;
@@ -12,60 +13,44 @@ class Plante{
       $db=new Connection();
       $this->cnx = $db->getConnection();
      }
-        // Getter for nomPlante
-    public function getNomPlante() {
-        return $this->nomPlante;
-    }
-
+  
+ 
     // Setter for nomPlante
     public function setNomPlante($nomPlante) {
         $this->nomPlante = $nomPlante;
     }
 
-    // Getter for imagePlante
-    public function getImagePlante() {
-        return $this->imagePlante;
-    }
+
+ 
 
     // Setter for imagePlante
     public function setImagePlante($imagePlante) {
         $this->imagePlante = $imagePlante;
     }
 
-    // Getter for descriptionPlante
-    public function getDescriptionPlante() {
-        return $this->descriptionPlante;
-    }
-
+  
     // Setter for descriptionPlante
     public function setDescriptionPlante($descriptionPlante) {
         $this->descriptionPlante = $descriptionPlante;
     }
 
-    // Getter for prix
-    public function getPrix() {
-        return $this->prix;
-    }
+
 
     // Setter for prix
     public function setPrix($prix) {
         $this->prix = $prix;
     }
 
-    // Getter for idCat
-    public function getIdCat() {
-        return $this->idCat;
-    }
+ 
+  
 
     // Setter for idCat
     public function setIdCat($idCat) {
         $this->idCat = $idCat;
     }
 
-    // Getter for stock
-    public function getStock() {
-        return $this->stock;
-    }
+  
+ 
 
     // Setter for stock
     public function setStock($stock) {
@@ -106,7 +91,13 @@ class Plante{
         $stmt = $this->cnx->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        $pla=array();
+        foreach($result as $row) {
+            //`idPlante`, `nomPlante`, `imagePlante`, `descriptionPlante`, `stock`, `prix`, `idCategorie`
+            $pla[]=new Planty($row['idPlante'],$row['nomPlante'],$row['imagePlante'],$row['descriptionPlante'],$row['prix'],$row['idCategorie'],$row['stock']);
+
+        }
+        return $pla;
 
     }
     public function get_plantid($idPlant) {

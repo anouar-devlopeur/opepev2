@@ -52,7 +52,8 @@ $plntae->setPrix($Prix);
 $plntae->setImagePlante($image);
 $res=$plntae->update_plante($idplant);
 if($res){
-  $msg= "plante été Modifier";
+
+  header('Location:adminPlant.php');
 }
 
 
@@ -87,7 +88,7 @@ if($res){
                                 foreach($res as $row){
                                  ?>
                                
-                                      <option value="<?php echo $row['idCategorie'] ?>" ><?php echo $row['nomCategorie'] ?></option>
+                                      <option value="<?php echo $row->getIdcat() ?>" ><?php echo $row->getNomCat() ?></option>
                                       <?php } ?>
                                   </select>
 

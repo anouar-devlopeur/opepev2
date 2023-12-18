@@ -24,7 +24,7 @@ include './CLASS/categorie.php'
     <!-- start content page -->
     <div class="container-fluid px-4 w-75">
        
-            <!-- start student list table -->
+        
             <div class="student-list-header d-flex justify-content-between align-items-center py-2">
                 <div class="title h6 fw-bold">Categorie</div>
                 <div class="btn-add d-flex gap-3 align-items-center">
@@ -50,16 +50,14 @@ include './CLASS/categorie.php'
                         
                         $cat=new Categorie();
                           $res=$cat->GetCat();
-                    
-                          foreach($res as $value):
-                           $id= $value['idCategorie'] ?>
+                          foreach($res as $value): ?>
                         
                       <tr class="bg-white align-middle">
-                                 <td><?php echo $value['idCategorie'] ?></td>
-                                <td><?php echo $value['nomCategorie'] ?></td>
+                                 <td><?php echo $value->getIdcat() ; ?></td>
+                                <td><?php echo $value->getNomCat();  ?></td>
                                 <td class="d-md-flex gap-3 mt-3">
-                                <a href="updateCat.php?Id=<?php echo $value['idCategorie']?>"><i class="far fa-pen"></i></a>
-                                <a href="./traitement/remove.php?Id=<?php echo $value['idCategorie']?>"><i class="far fa-trash"></i></a>
+                                <a href="updateCat.php?Id=<?php echo $value->getIdcat() ;?>"><i class="far fa-pen"></i></a>
+                                <a href="./traitement/remove.php?Id=<?php echo $value->getIdcat() ;?>"><i class="far fa-trash"></i></a>
                                 </td>
                         </tr> 
 
@@ -68,7 +66,7 @@ include './CLASS/categorie.php'
                     </tbody>
                 </table>
             </div>
-            <!-- end student list table -->
+    
         </div>
         
 </main>

@@ -17,8 +17,7 @@ if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
 if(isset($_GET['id'])) {
    $idArticle = $_GET['id'];
    $Article=new Articleclass();
-   $article= $Article->affiche_by_idarticle($idArticle );
- 
+   $article= $Article->affiche_by_idarticle($idArticle);
 } 
 
 // if(isset($_POST['cmn'])){
@@ -225,13 +224,13 @@ if(isset($_GET['id'])) {
 
  
         <div class="ms-2 w-50 mb-2">
-                <img style=" width:100%" src="<?php echo $article['imageAr']; ?>" alt="<?php echo $article['nomAr']; ?>" class=""> 
+                <img style=" width:100%" src="<?php echo $article->getUploadPath(); ?>" class=""> 
 
         </div>
         <div class="w-50">
-            <h3 class="text-base fw-bold fs-2"><?php echo $article['nomAr']; ?></h3>
+            <h3 class="text-base fw-bold fs-2"><?php echo $article->getName() ?></h3>
             <p class="fs-4 text-base fw-bold">
-            <?php echo $article['descriptionAr']; ?>
+            <?php echo $article->getDesc(); ?>
           </p>
          
               <div>

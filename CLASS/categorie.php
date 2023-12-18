@@ -1,28 +1,43 @@
 <?php 
+include_once './CLASS/catergory.php';
 class Categorie{
     private $cnx;
     private $nomCat;
+   
 
+ 
 
     public function __construct() {
         $djd = new Connection();
         $this->cnx = $djd->getConnection();
-        
 
+        
     }
-        // Getter pour $nomCat
-        public function getNomCat() {
-            return $this->nomCat;
-        }
+    // public function getIdcat() {
+    //     return $this->idcat;
+    // }
+
+    // // Setter pour $nomCat
+    // public function setIdcat($idCat) {
+    //     $this->idcat=$idCat;
+    // }
+    //     // Getter pour $nomCat
+    //     public function getNomCat() {
+    //         return $this->nomCat;
+    //     }
     
-        // Setter pour $nomCat
-        public function setNomCat($nomCat) {
-            $this->nomCat = $nomCat;
-        }
+    //     // Setter pour $nomCat
+    //     public function setNomCat($nomCat) {
+    //         $this->nomCat = $nomCat;
+    //     }
     public function getCategorie() {
         $qery=$this->cnx->query("SELECT DISTINCT idCategorie, nomCategorie FROM categories");
        $categ=$qery->fetchAll(PDO::FETCH_ASSOC);
-        return $categ;
+       $cat=array();
+       foreach($categ as $row){
+        $cat[]=new Catergory($row['idCategorie'],$row['nomCategorie']);
+       }
+        return $cat;
     }
     public function CountCategorie(){
         $query = "SELECT COUNT(*) as totalCat FROM categories";
@@ -36,7 +51,12 @@ class Categorie{
         $stmt = $this->cnx->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        $cat=array();
+        foreach($result as $row) {
+            $cat[]=new Catergory($row['idCategorie'],$row['nomCategorie']);
+
+        }
+    return $cat;
      
        
     }
@@ -64,6 +84,11 @@ class Categorie{
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
        $res= $stmt->execute();
        return $res;
+    }
+
+    public function setNomCat($name)
+    {
+        $this->nomCat = $name;
     }
     
 }

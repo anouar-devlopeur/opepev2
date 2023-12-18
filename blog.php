@@ -28,16 +28,19 @@ include './include/heder2.php';
 
     $themesResult= $Theme->get_theme();
     
-        foreach($themesResult as $theme ) {
-            $themeTitle = $theme['nomTh'];
-            $themeDescription = $theme['descriptionTh'];
-            $themeImage = $theme['imageTh'];
-            $idth = $theme['idTh'];
+    foreach ($themesResult as $theme) {
+        $themeTitle = $theme->getNomTh();
+        $themeDescription = $theme->getDescriptionTh();
+        $themeImage = $theme->getImageTh();
+        $idth = $theme->getIdTh();
+    
+      
+    
     ?>
 
             <section class="sec1 d-flex" style="width: 100%;">
                 <div class="division1" style="width: 42%">
-                    <img src="plantes/<?php echo $themeImage; ?>.jpg" style="height: 45vw; width:40vw; padding:24px " alt="<?php echo $themeTitle; ?>">
+                    <img src="./img/<?php echo $themeImage; ?>" style="height: 45vw; width:40vw; padding:24px " alt="<?php echo $themeTitle; ?>">
                 </div>
                 <div class="division2" style="width: 58%; padding:24px ">
                     <div>
@@ -49,7 +52,7 @@ include './include/heder2.php';
                             <table>
                                 <tr>
                                     <td style=" border: 1px solid black;  padding: 10px; width:35vw ; gap:50px" class="d-flex">
-                                        <img src="plantes/<?php echo $themeImage; ?>.jpg" style="height: 10vw;width:10vw" alt="<?php echo $themeTitle; ?>">
+                                        <img src="./img/<?php echo $themeImage; ?>" style="height: 10vw;width:10vw" alt="<?php echo $themeTitle; ?>">
                                         <div class="d-flex flex-column">
                                             <h3 style="color: black;">Tout sur... <?php echo $themeTitle; ?></h3>
                                             <div class="d-flex" style=" align-items: center; gap:10px">

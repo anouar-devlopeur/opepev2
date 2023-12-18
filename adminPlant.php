@@ -22,10 +22,10 @@ include './CLASS/categorie.php';
      
     include './include/sideber.php'
     ?>
-    <!-- start content page -->
+   
     <div class="container-fluid px-4 w-75">
        
-            <!-- start student list table -->
+          
             <div class="student-list-header d-flex justify-content-between align-items-center py-2">
                 <div class="title h6 fw-bold">Plante</div>
                 <div class="btn-add d-flex gap-3 align-items-center">
@@ -57,16 +57,16 @@ include './CLASS/categorie.php';
                           foreach($result as $value):
                         ?>
                       <tr class="bg-white align-middle">
-                      <td><?php echo $value['idPlante'] ?></td>
-                                <td><?php echo $value['nomPlante'] ?></td>
-           <td><img src="./img/<?php echo $value['imagePlante'] ?>" alt="img" height="50" with="50"></td>
+                      <td><?php echo $value->getIdPlante() ?></td>
+                                <td><?php echo $value->getNomPlante() ?></td>
+           <td><img src="./img/<?php echo $value->getImagePlante() ?>" alt="img" height="50" with="50"></td>
 
-                                <td><?php echo $value['descriptionPlante'] ?></td>
-                                <td><?php echo $value['prix'] ?></td>
-                                <td><?php echo $value['idCategorie'] ?></td> 
+                                <td><?php echo $value->getDescriptionPlante() ?></td>
+                                <td><?php echo $value->getPrix() ?></td>
+                                <td><?php echo $value->getIdCat()?></td> 
                                 <td class="d-md-flex gap-3 mt-3">
-                                  <a href="modifierplant.php?Idp=<?php echo $value['idPlante']?>"><i class="far fa-pen"></i></a>
-                                  <a href="./traitement/remove.php?Idp=<?php echo $value['idPlante']?>"><i class="far fa-trash"></i></a>
+                                  <a href="modifierplant.php?Idp=<?php echo $value->getIdPlante()?>"><i class="far fa-pen"></i></a>
+                                  <a href="./traitement/remove.php?Idp=<?php echo $value->getIdPlante()?>"><i class="far fa-trash"></i></a>
                                 </td>
                         </tr> 
 

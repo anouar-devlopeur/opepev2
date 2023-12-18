@@ -18,7 +18,8 @@ if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
 $userId = $_SESSION['idUtl'];
 
 $idth=$_GET['id'];
-$Article=new Articleclass();
+$Article;
+$articleClass = new Articleclass();
 
 
 if (isset($_POST["save_data"])) {
@@ -43,15 +44,9 @@ if (in_array($i_lower, $allowed_extensions)) {
       // Gérer les tags
       $tags = isset($_POST['tag']) ? implode(',', $_POST['tag']) : '';
       // insertion article
-      $Article->setName($name);
-      $Article->setDesc($desc);
-      $Article->setUploadPath($upload_path);
-      $Article->setDate($date);
-      $Article->setIdUser($userId);
-      $Article->setIdth($idth);
-      $Article->setTags($tags);
+      $Article = new Article(null, $name, $desc, $upload_path, $date, $userId, $idth, $tags);
 
-      $res=$Article->insertarticle();
+      $res=$articleClass->insertarticle($Article);
 
       // if ($res) {
   
@@ -61,31 +56,9 @@ if (in_array($i_lower, $allowed_extensions)) {
 }
 }
 
-// if(isset($_POST['cancel'])){
-//   header("Location: article.php?id=$idth");
-// }
 
-// if(isset($_POST['addComm'])){
-//   $commenter=$_POST['commente'];
-  
-//   $idAr=$_POST['articleId'];
-  
-  
-//   // insertion du commentaire
-//   $req = "INSERT INTO commentaire (contenuCom, idUtl, idAr) VALUES 
-//         ('$commenter', '$idUser', '$idAr')";
 
-//   $result = mysqli_query($conn, $req);
 
-//   if ($result) {
-//       echo "<script>alert('commenter cree avec succès.')</script>";
-//       echo "<script>setTimeout(function(){ window.location.href = 'article.php?id=$idth'; }, 1000);</script>";
-//   } else {
-
-//       echo "Erreur de creation : " . mysqli_error($conn);
-//   }
-  
-// }
 
 
 ?>
@@ -381,6 +354,7 @@ $result = $Theme->article_by_idth($idth);
   foreach ($result as $row) {
  
     $articleId = $row['idAr'];
+    
 ?>
 
 <div class="card mb-4 col-" style="width: 25%">
@@ -418,7 +392,7 @@ $result = $Theme->article_by_idth($idth);
 <div class="pagination  d-flex justify-content-center">
   <?php
 
-  $pagination=$Article->pagination($idth);
+  $pagination=$articleClass->pagination($idth);
 
 
   $totalpage = ceil($pagination / 10);
