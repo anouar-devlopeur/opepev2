@@ -13,13 +13,15 @@ class client{
             return $count;
         }
     }
-    public function plantesQuery($sql){
-        $res=$this->cnx->query($sql);
-  
-            return $res;
+    // public function plantesQuery($sql){
+    //     $res=$this->cnx->query($sql);
+    //     $rest=$res->fetchAll(PDO::FETCH_OBJ);
+
+
+    //         return $rest;
       
 
-    }
+    // }
     public function pagination(){
          $result = "SELECT COUNT(idPlante) AS total FROM plantes";
          $res = $this->cnx->query($result); 

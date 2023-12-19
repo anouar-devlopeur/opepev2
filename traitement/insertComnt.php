@@ -15,6 +15,7 @@ if(isset($_POST['cmn'])){
     $comnt->setIdUtl($idUtl);
     $comnt->setIdAr($idart);
     $res=$comnt->insertContenuCom();
+    
     if($res){
         header("Location: ../oneArticle.php?id=" . $idart);
     }

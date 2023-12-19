@@ -1,5 +1,5 @@
 <?php 
-include './CLASS/planty.php';
+require_once 'planty.php';
 class Plante{
     private $cnx;
     private $nomPlante;
@@ -108,6 +108,20 @@ class Plante{
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+    public function plantesQuery($sql){
+        $res=$this->cnx->query($sql);
+        $result=$res->fetchAll(PDO::FETCH_ASSOC);
+        $pla=array();
+        foreach($result as $row) {
+            //`idPlante`, `nomPlante`, `imagePlante`, `descriptionPlante`, `stock`, `prix`, `idCategorie`
+            $pla[]=new Planty($row['idPlante'],$row['nomPlante'],$row['imagePlante'],$row['descriptionPlante'],$row['prix'],$row['idCategorie'],$row['stock']);
+
+        }
+        return $pla;
+
+        
+
+    }
     
     public function dellet_plante($id){
         $dellete='DELETE FROM `plantes` WHERE idPlante= :id';
@@ -132,5 +146,46 @@ class Plante{
         $res = $stmt->execute();
     
         return $res;
+    }
+
+
+    /**
+     * Get the value of nomPlante
+     */ 
+    public function getNomPlante()
+    {
+        return $this->nomPlante;
+    }
+
+    /**
+     * Get the value of imagePlante
+     */ 
+    public function getImagePlante()
+    {
+        return $this->imagePlante;
+    }
+
+    /**
+     * Get the value of descriptionPlante
+     */ 
+    public function getDescriptionPlante()
+    {
+        return $this->descriptionPlante;
+    }
+
+    /**
+     * Get the value of prix
+     */ 
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * Get the value of stock
+     */ 
+    public function getStock()
+    {
+        return $this->stock;
     }
 }

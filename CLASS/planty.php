@@ -1,7 +1,7 @@
 <?php 
 class Planty{
   
-       private $nomPlante;
+    private $nomPlante;
     private $imagePlante;
     private $descriptionPlante;
     private $prix;

@@ -1,8 +1,8 @@
 
 <?php 
-include './CLASS/Connection.php';
-include './CLASS/pannier.php';
-include './CLASS/plante.php';
+require_once './CLASS/Connection.php';
+require_once './CLASS/pannier.php';
+require_once './CLASS/plante.php';
 session_start();
 $userId = $_SESSION['idUtl'];
 $Pannier=new Pannier();
@@ -20,26 +20,28 @@ include './include/header.php' ?>
         <div class="card mb-4">
           <div class="card-header py-3">
             <h5 class="mb-0">Cart - Item </h5><?php 
-                 $result=$Pannier->affichePannier($userId);   
+            $Pannier->setIdUtl($userId);
+            $result=$Pannier->affichePannier($Pannier); 
+
            ?>
           </div>
           <div class="card-body">
             <?php
           foreach ($result as $row) {
                 // Vous devrez remplacer cette partie avec les données de votre base de données
-                $productName = $row['nomPlante'] ; // Remplacez par le nom de votre produit
-                $productDescription = $row['descriptionPlante']; // Remplacez par la couleur de votre produit
-                $productStock = $row['stock']; // Remplacez par la taille de votre produit
-                $productPrice =$row['prix']; // Remplacez par le prix de votre produit
-                $imagePlante = $row['imagePlante'];
-                $idPanier = $row['idPanier'];
+                $productName = $row->getPlante()->getNomPlante() ; // Remplacez par le nom de votre produit
+                $productDescription = $row->getPlante()->getDescriptionPlante(); // Remplacez par la couleur de votre produit
+                $productStock = $row->getPlante()->getStock(); // Remplacez par la taille de votre produit
+                $productPrice =$row->getPlante()->getPrix(); // Remplacez par le prix de votre produit
+                $imagePlante = $row->getPlante()->getImagePlante();
+                $idPanier = $row->getIdP();
                 ?>
                 <!-- Single item -->
                 <div class="row">
                     <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                         <!-- Image -->
                         <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                            <img src="<?php echo $imagePlante ?>"
+                            <img src="./img/<?php echo $imagePlante ?>"
                                 class="w-100" alt="<?php echo  $productName; ?>" />
                             <a href="#!">
                                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>

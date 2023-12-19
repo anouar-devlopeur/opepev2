@@ -1,15 +1,15 @@
 <?php 
-include '../CLASS/Connection.php';
-include '../CLASS/pannier.php';
-include '../CLASS/commande.php';
+require_once '../CLASS/Connection.php';
+require_once '../CLASS/pannier.php';
+require_once '../CLASS/commande.php';
 session_start();
 $userId = $_SESSION['idUtl'];
 $Pannier=new Pannier();
 $Commande=new Commande();
 if (isset($_POST['commander'])) {
-  
-    $result=$Pannier->affichePannier($userId);
-     if ($result) {
+     $Pannier->setIdUtl($userId);
+    $result=$Pannier->affichePannier($Pannier);
+     if (count($result) > 0) {
      $Commande->setIdUser($userId);
    $res=$Commande->getCommande();
    if($res){

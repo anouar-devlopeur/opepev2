@@ -4,6 +4,7 @@
 include './CLASS/Connection.php';
 include './CLASS/clientclas.php';
 include './CLASS/categorie.php';
+include './CLASS/plante.php';
 session_start();
 if (empty($_SESSION['idUtl'])|| isset($_POST['logout'])) {
     $_SESSION['idUtl'] = "";
@@ -288,6 +289,7 @@ $client=new client();
     <section class="sec3">
         <div class="container mt-5">
             <?php
+            $plante=new Plante();
             $limit = 6;
             $page = isset($_GET['page']) ? $_GET['page'] : 1;
             $start = ($page - 1) * $limit;
@@ -295,14 +297,16 @@ $client=new client();
             // // Vérifie si le formulaire est soumis
             if (isset($_GET['view_all'])) {
                 $sql="SELECT * FROM plantes LIMIT $start, $limit";
-                $plantesQuery=$client->plantesQuery($sql);
+                $plantesQuery=$plante->plantesQuery($sql);
+             
+                
 
             }
              elseif(isset($_GET['search_but'])||(!empty($_GET['search_but']))) {
                 
                $nomPlante = $_GET['search'];
                $sql="SELECT * FROM plantes WHERE nomPlante LIKE '%$nomPlante%'";
-               $plantesQuery=$client->plantesQuery($sql);
+               $plantesQuery=$plante->plantesQuery($sql);
             //     $plantesQuery = $conn->query("");
                 
              }
@@ -311,32 +315,32 @@ $client=new client();
                 $categoryFilter = (isset($_GET['categorie']) && $_GET['categorie'] != 'all') ? "WHERE idCategorie = {$_GET['categorie']}" : "";
                   //     // Mettez à jour la requête pour inclure le filtre de catégorie      
                   $sql="SELECT * FROM plantes $categoryFilter LIMIT $start, $limit";
-                  $plantesQuery=$client->plantesQuery($sql);
+                  $plantesQuery=$plante->plantesQuery($sql);
              }
 
              $counter = 0;
-             if ($plantesQuery->rowCount() > 0) {
-                while ($plante = $plantesQuery->fetch(PDO::FETCH_OBJ)) {
+            //  if (Count($plantesQuery) > 0) {
+                foreach ($plantesQuery as $plante) {
                     if ($counter % 3 == 0) {
                         echo '<div class="row">';
                     }
                     echo '<div class="col-md-4 mb-4">';
                     echo '<div class="card">';
                     echo '<div class="d-flex justify-content-center">';
-                    echo '<img src="./img/' . $plante->imagePlante . '" class="card-img-top card-img-custom" alt="' . $plante->nomPlante . '">';
+                    echo '<img src="./img/' . $plante->getImagePlante() . '" class="card-img-top card-img-custom" alt="' . $plante->getNomPlante() . '">';
                     echo '</div>';
                     echo '<div class="card-body">';
-                    echo '<h5 class="card-title">' . $plante->nomPlante . '</h5>';
+                    echo '<h5 class="card-title">' . $plante->getNomPlante(). '</h5>';
                     echo '<hr>';
                     echo '<div class="text-left">';
-                    echo '<p class="card-text mb-2"><strong>Description:</strong> <span style="color:black;">' . $plante->descriptionPlante . '</span></p>';
-                    echo '<p class="card-text mb-2"><strong>Price:</strong> <span style="color:black;">' . $plante->prix . 'DH </span></p>';
-                    echo '<p class="card-text mb-2"><strong>Stock:</strong> <span style="color:black;">' . $plante->stock . '</span></p>';
+                    echo '<p class="card-text mb-2"><strong>Description:</strong> <span style="color:black;">' . $plante->getDescriptionPlante() . '</span></p>';
+                    echo '<p class="card-text mb-2"><strong>Price:</strong> <span style="color:black;">' . $plante->getPrix() . 'DH </span></p>';
+                    echo '<p class="card-text mb-2"><strong>Stock:</strong> <span style="color:black;">' . $plante->getStock() . '</span></p>';
                     echo '</div>';
                     echo '<div class="d-flex justify-content-center">';
                     //---------------------------------- form-btn--------------------------------------
                     echo '<form method="POST" action="traitement/insertpannier.php" >';
-                    echo '<button class="btn btn-success panier-btn mt-2" name="addToCart" value="' . $plante->idPlante . '">
+                    echo '<button class="btn btn-success panier-btn mt-2" name="addToCart" value="' . $plante->getIdPlante() . '">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
                             <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
                             <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
@@ -364,9 +368,9 @@ $client=new client();
              
     
              
-            }else{
-                echo "<script>alert('La plante n existe pas')</script>";
-             }
+            // }else{
+            //     echo "<script>alert('La plante n existe pas')</script>";
+            //  }
             
 
            

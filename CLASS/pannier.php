@@ -1,12 +1,24 @@
 <?php 
+require_once("plante.php");
 class Pannier{
     private $cnx;
     private $idUtl;
-    private$idPlante;
+    private $idP;
+    private $idPlante;
+    private Plante $plante;
 
     public function __construct(){
-        $djd = new Connection();
-        $this->cnx = $djd->getConnection();
+        $db=new Connection();
+      $this->cnx = $db->getConnection();
+        $this->plante = new Plante();
+    }
+
+    /**
+     * Get the value of plante
+     */ 
+    public function getPlante()
+    {
+        return $this->plante;
     }
         // Getter for $idUtl
         public function getIdUtl() {
@@ -37,13 +49,25 @@ class Pannier{
 
         return true;
     }
-    public function affichePannier($idUtl) {
+    public function affichePannier(Pannier $panier) {
+        $idUtl = $panier->getIdUtl();
               $reqet="SELECT * FROM panier JOIN plantes ON panier.idPlante = plantes.idPlante WHERE idUtl= :userId";
           $rest = $this->cnx->prepare($reqet);
           $rest->bindParam(':userId', $idUtl, PDO::PARAM_INT);
           $rest->execute();
-          return $rest->fetchAll(PDO::FETCH_ASSOC);
-        
+          $plants = array();
+          while($row = $rest->fetch(PDO::FETCH_ASSOC)) {
+            $plante = new Pannier();
+            $plante->setIdP($row['idPanier']);
+            $plante->getPlante()->setNomPlante($row['nomPlante']);
+            $plante->getPlante()->setImagePlante($row['imagePlante']);
+            $plante->getPlante()->setDescriptionPlante($row['descriptionPlante']);
+            $plante->getPlante()->setPrix($row['prix']);
+            $plante->getPlante()->setStock($row['stock']);
+            array_push($plants, $plante);
+          } 
+          
+          return $plants;
     }
     public function deletePannier($idpannier) {
         $query = "DELETE FROM panier WHERE idPanier = :idpannier";
@@ -60,5 +84,27 @@ class Pannier{
 
     }
     
+
+    
+
+    /**
+     * Get the value of idP
+     */ 
+    public function getIdP()
+    {
+        return $this->idP;
+    }
+
+    /**
+     * Set the value of idP
+     *
+     * @return  self
+     */ 
+    public function setIdP($idP)
+    {
+        $this->idP = $idP;
+
+        return $this;
+    }
 }
 ?>
